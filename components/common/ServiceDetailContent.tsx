@@ -5,11 +5,14 @@ import Link from "next/link";
 import { PageBanner } from "@/components/common/PageBanner";
 import { Card } from "@/components/common/Card";
 import { Button } from "@/components/common/Button";
-import { ContactForm } from "@/components/forms/ContactForm";
 import { PartnerLogos, type Partner } from "@/components/common/PartnerLogos";
-import { TrendingUp, ShieldCheck, HeartPulse, Home, Car, CheckCircle2 } from "lucide-react";
+import { YouTubeVideoSection } from "@/components/common/YouTubeVideoSection";
+import { MutualFundCalculatorsSection } from "@/components/common/MutualFundCalculatorsSection";
+import { ContactConsultationSection } from "@/components/common/ContactConsultationSection";
+import { TrendingUp, ShieldCheck, HeartPulse, Home, Car, CheckCircle2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { company } from "@/config/company";
+import type { YouTubeVideo, Partner as CMSPartner } from "@/types/cms";
 
 interface ServiceDetail {
 	name: string;
@@ -53,7 +56,7 @@ const servicesData: Record<string, ServiceDetail> = {
 			],
 		},
 	},
-	"lic": {
+	lic: {
 		name: "LIC Life Insurance",
 		headline: "Protect Your Family's Future",
 		description: "Government-backed LIC life insurance plans that give your family financial security, whatever happens.",
@@ -133,68 +136,156 @@ const servicesData: Record<string, ServiceDetail> = {
 	},
 };
 
-export function ServiceDetailContent({ slug }: { slug: string }) {
+interface ServiceDetailContentProps {
+	slug: string;
+	videos?: YouTubeVideo[];
+	cmsPartners?: CMSPartner[];
+}
+
+export function ServiceDetailContent({
+	slug,
+	videos = [],
+	cmsPartners = [],
+}: ServiceDetailContentProps) {
 	const service = servicesData[slug];
 	if (!service) return null;
 
 	const Icon = service.icon;
 	const breadcrumbItems = [{ name: "Services", href: "/services" }, { name: service.name }];
 
+	// Dynamic partner resolution from Supabase Partners CMS (LIC, Star Health, General, Mutual Funds, etc.)
+	const categoryMatchingPartners = cmsPartners.filter((p) => {
+		const cat = (p.category ?? "").toLowerCase();
+		const pName = p.name.toLowerCase();
+		if (slug === "mutual-funds") {
+			return cat.includes("mutual") || cat.includes("amc") || pName.includes("mutual") || pName.includes("fund") || pName.includes("sbi") || pName.includes("nippon") || pName.includes("icici");
+		}
+		if (slug === "lic") {
+			return cat.includes("life") || cat.includes("lic") || pName.includes("lic") || pName.includes("life insurance");
+		}
+		if (slug === "health-insurance") {
+			return cat.includes("health") || cat.includes("star") || pName.includes("star health") || pName.includes("health");
+		}
+		if (slug === "general-insurance" || slug === "vehicle-insurance") {
+			return cat.includes("general") || cat.includes("vehicle") || pName.includes("chola") || pName.includes("national") || pName.includes("insurance");
+		}
+		return false;
+	});
+
+	// Build active partner list dynamically from Supabase CMS
+	const activePartnerList =
+		categoryMatchingPartners.length > 0
+			? categoryMatchingPartners.map((p) => ({
+					name: p.name,
+					src: p.logo_url,
+					logo_url: p.logo_url,
+					type: slug === "lic" ? "Life Insurance Corporation of India" : slug === "health-insurance" ? "Star Health & Allied Insurance" : (p.category ?? undefined),
+					website_url: p.website_url,
+			  }))
+			: (service.partnerSection?.partners ?? []).map((staticP) => {
+					// Fallback: Check if cmsPartners has an updated logo for this static partner name
+					const cmsMatch = cmsPartners.find(
+						(cp) =>
+							cp.name.toLowerCase().trim() === staticP.name.toLowerCase().trim() ||
+							cp.name.toLowerCase().includes(staticP.name.toLowerCase()) ||
+							staticP.name.toLowerCase().includes(cp.name.toLowerCase())
+					);
+					if (cmsMatch) {
+						return {
+							...staticP,
+							name: cmsMatch.name,
+							src: cmsMatch.logo_url,
+							logo_url: cmsMatch.logo_url,
+							website_url: cmsMatch.website_url,
+						};
+					}
+					return staticP;
+			  });
+
 	return (
 		<div className="flex flex-col w-full">
 			<PageBanner title={service.headline} description={service.description} breadcrumbItems={breadcrumbItems} />
 
-			<section className="py-20 md:py-28 bg-white">
-				<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
-					{/* What we offer */}
+			{/* What We Offer Section */}
+			<section className="py-20 md:py-28 bg-white border-b border-neutral-100">
+				<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-10">
 					<motion.div
 						initial={{ opacity: 0, y: 16 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
 						transition={{ duration: 0.5 }}
-						className="lg:col-span-7 flex flex-col gap-6 text-left"
+						className="flex flex-col gap-6 text-left"
 					>
-						<div className={`h-14 w-14 rounded-xl flex items-center justify-center ${service.iconBg} ${service.iconColor}`}>
-							<Icon className="h-7 w-7" />
+						<div className="flex items-center gap-4">
+							<div className={`h-14 w-14 rounded-2xl flex items-center justify-center shadow-xs ${service.iconBg} ${service.iconColor}`}>
+								<Icon className="h-7 w-7" />
+							</div>
+							<div>
+								<span className="text-xs font-bold uppercase tracking-widest text-blue-600">SERVICE OVERVIEW</span>
+								<h2 className="font-display text-2xl md:text-3xl font-bold text-navy-900">
+									What We Offer in {service.name}
+								</h2>
+							</div>
 						</div>
-						<h2 className="font-display text-2xl md:text-3xl font-bold text-navy-900">
-							What We Offer
-						</h2>
-						<ul className="flex flex-col gap-4">
+
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
 							{service.whatWeOffer.map((item, idx) => (
-								<li key={idx} className="flex items-start gap-3">
-									<CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-									<span className="text-base text-neutral-600 leading-relaxed">{item}</span>
-								</li>
+								<Card key={idx} variant="resting" hoverEffect className="flex flex-col gap-3 p-6 border-neutral-200/80 bg-neutral-50/50">
+									<div className="h-9 w-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+										<CheckCircle2 className="h-5 w-5" />
+									</div>
+									<span className="text-sm font-semibold text-navy-900 leading-relaxed font-body">{item}</span>
+								</Card>
 							))}
-						</ul>
-						<Card variant="resting" className="mt-2 border-neutral-100">
-							<p className="text-sm text-neutral-600 leading-relaxed">
-								Not sure which option is right for you? Call us or send a message — one of our
-								advisors will walk you through it in plain language, free of charge.
-							</p>
-							<Link href={company.phone.href}>
-								<Button variant="secondary" className="mt-4">
-									Call {company.phone.display}
+						</div>
+
+						<Card variant="resting" className="mt-4 border-blue-100 bg-blue-50/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-6 sm:p-8 rounded-2xl">
+							<div className="flex flex-col gap-1 text-left">
+								<h4 className="font-display font-bold text-base text-navy-900">Need Personalized Assistance?</h4>
+								<p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-body">
+									Not sure which option fits your family best? Talk to our certified advisors free of charge.
+								</p>
+							</div>
+							<Link href={company.phone.href} className="shrink-0">
+								<Button variant="primary-gradient" className="inline-flex items-center gap-2 text-xs uppercase tracking-wider px-6">
+									<span>Call {company.phone.display}</span>
+									<ArrowRight className="h-4 w-4" />
 								</Button>
 							</Link>
 						</Card>
 					</motion.div>
-
-					{/* Quick enquiry form */}
-					<div className="lg:col-span-5">
-						<ContactForm />
-					</div>
 				</div>
 			</section>
 
-			{service.partnerSection && (
+			{/* Mutual Fund Calculators (Only for Mutual Funds Service Page) */}
+			{slug === "mutual-funds" && <MutualFundCalculatorsSection />}
+
+			{/* Service Category YouTube Videos */}
+			{videos && videos.length > 0 && (
+				<YouTubeVideoSection
+					videos={videos}
+					badgeText={`${service.name} Videos`}
+					sectionTitle={`Watch ${service.name} Explainer & Client Videos`}
+					sectionSubtitle="Educational videos and real client experiences explaining our solutions."
+					bgClassName="bg-neutral-50 border-b border-neutral-200"
+				/>
+			)}
+
+			{/* Empanelled Partners Section */}
+			{service.partnerSection && activePartnerList.length > 0 && (
 				<PartnerLogos
 					title={service.partnerSection.title}
-					partners={service.partnerSection.partners}
+					partners={activePartnerList}
 					variant={service.partnerSection.variant}
 				/>
 			)}
+
+			{/* Standardized Contact / Book Consultation Section (Identical to Homepage) */}
+			<ContactConsultationSection
+				eyebrow="BOOK A CONSULTATION"
+				title={`Book a Free Consultation for ${service.name}`}
+				description="Call us, WhatsApp us, or fill in your details below — our certified advisors will guide you step-by-step."
+			/>
 		</div>
 	);
 }

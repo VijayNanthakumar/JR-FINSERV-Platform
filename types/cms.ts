@@ -29,6 +29,9 @@ export type HeroSlideUpdate = Partial<HeroSlideInsert>;
 export interface GalleryImage {
   id: string;
   image_url: string;
+  title?: string | null;
+  description?: string | null;
+  category?: string | null;
   caption: string | null;
   alt_text: string | null;
   is_active: boolean;
@@ -81,6 +84,37 @@ export interface Testimonial {
 
 export type TestimonialInsert = Omit<Testimonial, "id" | "created_at" | "updated_at">;
 export type TestimonialUpdate = Partial<TestimonialInsert>;
+
+// ─── YouTube Videos ──────────────────────────────────────────────────────────
+
+export const VIDEO_CATEGORIES = [
+  "Homepage",
+  "Mutual Funds",
+  "LIC",
+  "Health Insurance",
+  "General Insurance",
+  "Vehicle Insurance",
+  "Retirement Planning",
+  "Tax Saving",
+  "Other",
+] as const;
+
+export type VideoCategory = (typeof VIDEO_CATEGORIES)[number];
+
+export interface YouTubeVideo {
+  id: string;
+  title: string;
+  description: string | null;
+  youtube_url: string;
+  category: VideoCategory | string;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export type YouTubeVideoInsert = Omit<YouTubeVideo, "id" | "created_at" | "updated_at">;
+export type YouTubeVideoUpdate = Partial<YouTubeVideoInsert>;
 
 // ─── API Response Envelope ───────────────────────────────────────────────────
 

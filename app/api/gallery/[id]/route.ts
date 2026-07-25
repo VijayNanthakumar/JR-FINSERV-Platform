@@ -12,6 +12,9 @@ export async function PATCH(
 
     const updates: Record<string, unknown> = {};
     if (body.image_url !== undefined)   updates.image_url = body.image_url;
+    if (body.title !== undefined)       updates.title = body.title?.trim() ?? null;
+    if (body.description !== undefined) updates.description = body.description?.trim() ?? null;
+    if (body.category !== undefined)    updates.category = body.category?.trim() ?? null;
     if (body.caption !== undefined)     updates.caption = body.caption?.trim() ?? null;
     if (body.alt_text !== undefined)    updates.alt_text = body.alt_text?.trim() ?? null;
     if (body.is_active !== undefined)   updates.is_active = body.is_active;

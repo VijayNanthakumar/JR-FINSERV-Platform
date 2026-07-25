@@ -5,6 +5,7 @@ import {
 	ImageIcon,
 	Handshake,
 	Quote,
+	Video,
 	Settings,
 } from "lucide-react";
 
@@ -13,31 +14,43 @@ const cards = [
 		title: "Enquiries",
 		description: "View and manage contact form submissions",
 		icon: MessageSquareText,
+		href: "/portal/enquiries",
 	},
 	{
 		title: "Hero Banners",
 		description: "Manage homepage hero slider images",
 		icon: Images,
+		href: "/portal/content/hero",
 	},
 	{
 		title: "Gallery",
 		description: "Upload and organise photo gallery",
 		icon: ImageIcon,
+		href: "/portal/content/gallery",
 	},
 	{
 		title: "Partners",
 		description: "Manage partner logos and details",
 		icon: Handshake,
+		href: "/portal/content/partners",
 	},
 	{
 		title: "Testimonials",
 		description: "Manage client testimonials and reviews",
 		icon: Quote,
+		href: "/portal/content/testimonials",
+	},
+	{
+		title: "YouTube Videos",
+		description: "Manage YouTube video links and categories",
+		icon: Video,
+		href: "/portal/content/youtube-videos",
 	},
 	{
 		title: "Settings",
 		description: "Update website content and configuration",
 		icon: Settings,
+		href: "/portal/settings",
 	},
 ];
 
@@ -62,6 +75,7 @@ export default function DashboardPage() {
 						title={card.title}
 						description={card.description}
 						icon={card.icon}
+						href={card.href}
 					/>
 				))}
 			</div>

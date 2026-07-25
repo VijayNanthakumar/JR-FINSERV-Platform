@@ -40,13 +40,18 @@ export async function POST(request: NextRequest) {
     const supabase = createServerSupabaseClient();
     const { data, error } = await supabase
       .from("gallery_images")
-      .insert([{
-        image_url: body.image_url.trim(),
-        caption: body.caption?.trim() ?? null,
-        alt_text: body.alt_text?.trim() ?? null,
-        is_active: body.is_active ?? true,
-        display_order: body.display_order ?? 0,
-      }])
+      .insert([
+        {
+          image_url: body.image_url.trim(),
+          title: body.title?.trim() ?? null,
+          description: body.description?.trim() ?? null,
+          category: body.category?.trim() ?? null,
+          caption: body.caption?.trim() ?? body.title?.trim() ?? null,
+          alt_text: body.alt_text?.trim() ?? body.title?.trim() ?? null,
+          is_active: body.is_active ?? true,
+          display_order: body.display_order ?? 0,
+        },
+      ])
       .select()
       .single();
 

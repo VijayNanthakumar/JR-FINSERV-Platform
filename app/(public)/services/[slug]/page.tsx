@@ -2,6 +2,8 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/common/ServiceDetailContent";
 import type { Metadata } from "next";
+import { company } from "@/config/company";
+import { getActiveYouTubeVideos, getActivePartners } from "@/lib/cms-data";
 
 interface PageProps {
 	params: Promise<{ slug: string }>;
@@ -9,13 +11,19 @@ interface PageProps {
 
 const serviceNames: Record<string, string> = {
 	"mutual-funds": "Mutual Funds Advisory",
-	"lic": "LIC Life Insurance Advisory",
+	lic: "LIC Life Insurance Advisory",
 	"health-insurance": "Star Health Insurance Plans",
 	"general-insurance": "General Insurance Solutions",
 	"vehicle-insurance": "Vehicle Insurance Cover",
 };
 
-import { company } from "@/config/company";
+const slugToCategory: Record<string, string> = {
+	"mutual-funds": "Mutual Funds",
+	lic: "LIC",
+	"health-insurance": "Health Insurance",
+	"general-insurance": "General Insurance",
+	"vehicle-insurance": "Vehicle Insurance",
+};
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
 	const { slug } = await params;
@@ -34,7 +42,13 @@ export default async function ServiceDetailsPage({ params }: PageProps) {
 		notFound();
 	}
 
-	return <ServiceDetailContent slug={slug} />;
+	const category = slugToCategory[slug] || "Other";
+	const [videos, cmsPartners] = await Promise.all([
+		getActiveYouTubeVideos(category),
+		getActivePartners(),
+	]);
+
+	return <ServiceDetailContent slug={slug} videos={videos} cmsPartners={cmsPartners} />;
 }
 
 // Generate static routes during compilation

@@ -39,9 +39,6 @@ export function ContactForm() {
 		if (!form.service) {
 			newErrors.service = "Please select a service of interest.";
 		}
-		if (!form.message.trim()) {
-			newErrors.message = "Message details are required.";
-		}
 		if (!form.consent) {
 			newErrors.consent = "You must agree to be contacted regarding this enquiry.";
 		}
@@ -254,7 +251,7 @@ export function ContactForm() {
 			{/* Message Textarea */}
 			<div className="flex flex-col gap-1.5">
 				<label className="text-xs font-semibold uppercase tracking-wider text-neutral-600">
-					Your Message / Requirements <span className="text-red-500">*</span>
+					Your Message / Requirements <span className="text-[10px] text-neutral-400 font-normal lowercase">(optional)</span>
 				</label>
 				<textarea
 					name="message"

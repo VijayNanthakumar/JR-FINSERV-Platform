@@ -43,10 +43,6 @@ export async function POST(request: NextRequest) {
     fieldErrors.service = "Service selection is required.";
   }
 
-  if (!message?.trim()) {
-    fieldErrors.message = "Message is required.";
-  }
-
   // Phone validation
 
   const phoneNumber = String(phone ?? "").replace(/\s+/g, "");
@@ -72,7 +68,7 @@ export async function POST(request: NextRequest) {
     name: String(name).trim(),
     phone: phoneNumber,
     service: String(service).trim(),
-    message: String(message).trim(),
+    message: message?.trim() ? String(message).trim() : "No message provided",
   };
 
   if (email?.trim()) {

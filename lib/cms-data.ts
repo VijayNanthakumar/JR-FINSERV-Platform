@@ -13,6 +13,7 @@ import type {
   Partner,
   PartnerCategory,
   Testimonial,
+  YouTubeVideo,
 } from "@/types/cms";
 
 // ─── Hero Slides ─────────────────────────────────────────────────────────────
@@ -122,6 +123,33 @@ export async function getActiveTestimonials(): Promise<Testimonial[]> {
     return (data as Testimonial[]) ?? [];
   } catch (err) {
     console.error("[cms-data] getActiveTestimonials unexpected error:", err);
+    return [];
+  }
+}
+
+// ─── YouTube Videos ──────────────────────────────────────────────────────────
+
+export async function getActiveYouTubeVideos(category?: string): Promise<YouTubeVideo[]> {
+  try {
+    const supabase = createServerSupabaseClient();
+    let query = supabase
+      .from("youtube_videos")
+      .select("*")
+      .eq("is_active", true);
+
+    if (category) {
+      query = query.eq("category", category);
+    }
+
+    const { data, error } = await query.order("display_order", { ascending: true });
+
+    if (error) {
+      console.error("[cms-data] getActiveYouTubeVideos error:", error.message);
+      return [];
+    }
+    return (data as YouTubeVideo[]) ?? [];
+  } catch (err) {
+    console.error("[cms-data] getActiveYouTubeVideos unexpected error:", err);
     return [];
   }
 }

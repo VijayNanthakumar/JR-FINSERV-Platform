@@ -4,6 +4,7 @@ import { ContactForm } from "@/components/forms/ContactForm";
 import { HeroSlider } from "@/components/layout/HeroSlider";
 import { ServicesGrid } from "@/components/layout/ServicesGrid";
 import { FounderSection } from "@/components/layout/FounderSection";
+import { ContactConsultationSection } from "@/components/common/ContactConsultationSection";
 import { Button } from "@/components/common/Button";
 import {
 	ShieldCheck,
@@ -25,9 +26,10 @@ import {
 import { cn } from "@/lib/utils";
 import { company } from "@/config/company";
 import Image from "next/image";
+import { YouTubeVideoSection } from "@/components/common/YouTubeVideoSection";
 import {
 	getActiveHeroSlides,
-	getActiveGalleryImages,
+	getActiveYouTubeVideos,
 	getActivePartners,
 	getActiveTestimonials,
 	groupPartnersByCategory,
@@ -35,18 +37,15 @@ import {
 
 export default async function HomePage() {
 	// ─── Fetch CMS content directly from Supabase (server-side) ────────────────
-	const [heroSlides, galleryImages, partners, testimonials] = await Promise.all([
+	const [heroSlides, homepageVideos, partners, testimonials] = await Promise.all([
 		getActiveHeroSlides(),
-		getActiveGalleryImages(),
+		getActiveYouTubeVideos("Homepage"),
 		getActivePartners(),
 		getActiveTestimonials(),
 	]);
 
 	// Group partners by category (preserves homepage layout)
 	const partnerCategories = groupPartnersByCategory(partners);
-
-	// Use first 3 gallery images for the office gallery section
-	const officeGallery = galleryImages.slice(0, 3);
 
 	// ─── Static data (not managed by CMS) ──────────────────────────────────────
 
@@ -162,20 +161,12 @@ export default async function HomePage() {
 		},
 	];
 
-	// ─── Fallback gallery images if CMS is empty ────────────────────────────────
+	// ─── Static Office Photos (Homepage does not query gallery_images) ──────────
 	const staticGallery = [
 		{ src: "/images/office-team/unnamed.jpg", caption: "Office Exterior", alt: "Office Front View" },
 		{ src: "/images/gallery/sg.jpg", caption: "Reception Desk", alt: "Reception Area" },
 		{ src: "/images/gallery/unnamed (1)1.jpg", caption: "Meeting Room", alt: "Client Meeting Room" },
 	];
-	const displayGallery =
-		officeGallery.length > 0
-			? officeGallery.map((img) => ({
-					src: img.image_url,
-					caption: img.caption ?? "Office",
-					alt: img.alt_text ?? img.caption ?? "Office photo",
-			  }))
-			: staticGallery;
 
 	return (
 		<div className="flex flex-col w-full overflow-hidden">
@@ -433,51 +424,8 @@ export default async function HomePage() {
 				</section>
 			)}
 
-			{/* 7. Video Testimonials Section */}
-			<section className="py-20 md:py-28 bg-neutral-50 border-b border-neutral-200">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col gap-4">
-					<span className="text-xs font-bold uppercase tracking-widest text-blue-600">VIDEO STORIES</span>
-					<h2 className="font-display text-3xl md:text-4xl font-bold text-navy-900">What Our Customers Say</h2>
-					<p className="text-sm md:text-base text-neutral-500 max-w-xl mx-auto mb-8 font-body">
-						Watch short video testimonials from clients sharing their long-term advisory experience.
-					</p>
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left mt-2">
-						{videoReviews.map((video, idx) => (
-							<Card
-								key={idx}
-								variant="resting"
-								hoverEffect
-								className="overflow-hidden p-0 border-neutral-200/80 rounded-2xl flex flex-col justify-between h-full group"
-							>
-								<div className="relative w-full h-[210px] overflow-hidden bg-navy-950 border-b border-neutral-200 shrink-0">
-									<Image
-										src={video.thumbnail}
-										alt={video.name}
-										fill
-										className="object-cover transition-transform duration-500 group-hover:scale-105 opacity-80"
-									/>
-									<div className="absolute inset-0 bg-black/10 group-hover:bg-black/25 transition-colors duration-300 flex items-center justify-center">
-										<button
-											aria-label={`Play video review by ${video.name}`}
-											className="h-14 w-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 cursor-pointer"
-										>
-											<Play className="h-6 w-6 fill-current ml-1" />
-										</button>
-									</div>
-									<span className="absolute bottom-3 right-3 text-[10px] font-bold text-white bg-black/60 backdrop-blur-xs px-2.5 py-1 rounded-md">
-										{video.duration} Mins
-									</span>
-								</div>
-								<div className="p-5 flex flex-col gap-1 flex-1 justify-center">
-									<span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">Verified Client Video</span>
-									<h3 className="font-display font-bold text-base text-navy-900 truncate mt-1">{video.title}</h3>
-									<p className="text-xs text-neutral-500 font-body font-light mt-0.5">Shared by {video.name}</p>
-								</div>
-							</Card>
-						))}
-					</div>
-				</div>
-			</section>
+			{/* 7. Video Stories Section — loaded dynamically from Supabase (youtube_videos) */}
+			<YouTubeVideoSection videos={homepageVideos} />
 
 			{/* 8. Partners — live from CMS (grouped by category) */}
 			<section className="py-20 md:py-28 bg-white border-b border-neutral-200">
@@ -567,148 +515,7 @@ export default async function HomePage() {
 			</section>
 
 			{/* 10. Office Gallery & Contact Us Section */}
-			<section id="contact" className="py-20 md:py-28 bg-white">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-16">
-					{/* Contact split layout */}
-					<div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-						{/* Left: Contact + Location details */}
-						<div className="lg:col-span-5 flex flex-col gap-8">
-							<div className="flex flex-col gap-4 text-left">
-								<span className="text-xs font-bold uppercase tracking-widest text-blue-600">GET IN TOUCH</span>
-								<h2 className="font-display text-3xl md:text-4xl font-bold text-navy-900 leading-tight">
-									Let&apos;s Talk About Your Family&apos;s Future
-								</h2>
-								<p className="text-sm md:text-base text-neutral-500 leading-relaxed font-body">
-									Call us, WhatsApp us, or visit our office &mdash; whichever is easiest for you.
-								</p>
-							</div>
-
-							{/* Primary Contacts */}
-							<div className="flex flex-col gap-4">
-								{primaryContacts.map((method) => (
-									<a
-										key={method.title}
-										href={method.href}
-										target={method.href.startsWith("http") ? "_blank" : undefined}
-										rel="noopener noreferrer"
-										className="group"
-									>
-										<div
-											className={cn(
-												"flex items-center gap-5 border rounded-2xl p-5 md:p-6 transition-all duration-300 shadow-sm",
-												method.title.includes("WhatsApp")
-													? "bg-emerald-50/40 border-emerald-200/80 hover:border-emerald-500/50 hover:bg-emerald-50/70 hover:shadow-md"
-													: "bg-blue-50/40 border-blue-200/80 hover:border-blue-500/50 hover:bg-blue-50/70 hover:shadow-md"
-											)}
-										>
-											<div
-												className={cn(
-													"h-12 w-12 rounded-xl flex items-center justify-center shrink-0 border shadow-xs transition-transform duration-300 group-hover:scale-105",
-													method.title.includes("WhatsApp")
-														? "bg-emerald-500 text-white border-emerald-600/20"
-														: "bg-blue-700 text-white border-blue-800/20"
-												)}
-											>
-												<method.icon className="h-5 w-5" />
-											</div>
-											<div className="flex flex-col min-w-0">
-												<span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{method.title}</span>
-												<span className="text-lg md:text-xl font-bold text-navy-900 mt-0.5">{method.value}</span>
-												<span className="text-xs text-neutral-500 mt-0.5 font-body font-light">{method.description}</span>
-											</div>
-										</div>
-									</a>
-								))}
-							</div>
-
-							{/* Secondary Contacts */}
-							<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-								{secondaryContacts.map((method) => {
-									const content = (
-										<div
-											className="flex items-center gap-4 bg-white border border-neutral-200/80 rounded-2xl p-4 hover:border-neutral-300 hover:shadow-xs transition-all h-full"
-										>
-											<div className="h-9 w-9 rounded-xl bg-neutral-50 flex items-center justify-center text-neutral-600 shrink-0 border border-neutral-100">
-												<method.icon className="h-4.5 w-4.5" />
-											</div>
-											<div className="flex flex-col min-w-0">
-												<span className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400">{method.title}</span>
-												<span className="text-xs font-semibold text-neutral-800 truncate mt-0.5 font-body">{method.value}</span>
-											</div>
-										</div>
-									);
-									return method.href ? (
-										<a key={method.title} href={method.href} className="group">{content}</a>
-									) : (
-										<div key={method.title}>{content}</div>
-									);
-								})}
-							</div>
-						</div>
-
-						{/* Right: Contact Form */}
-						<div className="lg:col-span-7">
-							<ContactForm />
-						</div>
-					</div>
-
-					{/* Office Gallery & Directions */}
-					<div className="flex flex-col gap-6 border-t border-neutral-100 pt-12 text-left">
-						<div className="flex flex-col gap-2">
-							<span className="text-xs font-bold uppercase tracking-widest text-blue-600">OFFICE PRESENCE</span>
-							<h3 className="font-display font-bold text-2xl text-navy-900">Our Advisory Office Presence</h3>
-							<p className="text-sm text-neutral-500">Visit us in Komarapalayam during standard business hours.</p>
-						</div>
-
-						{/* Photo Gallery Grid — CMS or fallback */}
-						<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-2">
-							{displayGallery.map((photo, idx) => (
-								<div key={idx} className="relative h-[200px] rounded-2xl overflow-hidden border border-neutral-200 shadow-xs group">
-									<Image
-										src={photo.src}
-										alt={photo.alt}
-										fill
-										className="object-cover transition-transform duration-500 group-hover:scale-103"
-									/>
-									<div className="absolute inset-0 bg-black/10 flex items-end p-4">
-										<span className="text-white text-xs font-bold bg-black/50 backdrop-blur-xs px-3 py-1.5 rounded-lg">
-											{photo.caption}
-										</span>
-									</div>
-								</div>
-							))}
-						</div>
-
-						{/* Map Location */}
-						<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-4">
-							<div className="lg:col-span-8 relative overflow-hidden h-[300px] w-full rounded-2xl border border-neutral-200 shadow-md">
-								<iframe
-									title={`${company.name} office location map`}
-									src={company.googleMaps.embedUrl}
-									className="absolute inset-0 w-full h-full border-0"
-									loading="lazy"
-									referrerPolicy="no-referrer-when-downgrade"
-								/>
-							</div>
-							<div className="lg:col-span-4 flex flex-col gap-4 text-left">
-								<h4 className="font-semibold text-navy-900 text-sm uppercase tracking-wider">Komarapalayam Head Office</h4>
-								<p className="text-xs text-neutral-500 leading-relaxed font-body">{company.address.full}</p>
-								<a
-									href={company.googleMaps.link}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="mt-2"
-								>
-									<Button variant="primary-gradient" className="inline-flex items-center gap-2 text-xs uppercase tracking-wider px-6">
-										<Navigation className="h-4 w-4 shrink-0" />
-										Get Directions
-									</Button>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+			<ContactConsultationSection showOfficePresence={true} />
 		</div>
 	);
 }
