@@ -11,20 +11,39 @@ import {
 	ImageIcon,
 	Handshake,
 	Quote,
-	Settings,
 	LogOut,
 	ChevronLeft,
+	Globe,
 } from "lucide-react";
 
-const navItems = [
+interface NavItem {
+	label: string;
+	href: string;
+	icon: React.ElementType;
+}
+
+interface NavGroup {
+	groupLabel: string;
+	items: NavItem[];
+}
+
+const navStructure: (NavItem | NavGroup)[] = [
 	{ label: "Dashboard", href: "/portal/dashboard", icon: LayoutDashboard },
 	{ label: "Enquiries", href: "/portal/enquiries", icon: MessageSquareText },
-	{ label: "Hero Banners", href: "/portal/hero-banners", icon: Images },
-	{ label: "Gallery", href: "/portal/gallery", icon: ImageIcon },
-	{ label: "Partners", href: "/portal/partners", icon: Handshake },
-	{ label: "Testimonials", href: "/portal/testimonials", icon: Quote },
-	{ label: "Website Settings", href: "/portal/settings", icon: Settings },
+	{
+		groupLabel: "Website Content",
+		items: [
+			{ label: "Hero Slides", href: "/portal/content/hero", icon: Images },
+			{ label: "Gallery", href: "/portal/content/gallery", icon: ImageIcon },
+			{ label: "Partners", href: "/portal/content/partners", icon: Handshake },
+			{ label: "Testimonials", href: "/portal/content/testimonials", icon: Quote },
+		],
+	},
 ];
+
+function isGroup(item: NavItem | NavGroup): item is NavGroup {
+	return "groupLabel" in item;
+}
 
 interface SidebarProps {
 	isOpen: boolean;
@@ -42,6 +61,30 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 		document.cookie = "sb-refresh-token=; path=/; max-age=0; SameSite=Lax";
 
 		router.push("/portal/login");
+	};
+
+	const renderNavItem = (item: NavItem) => {
+		const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+		const Icon = item.icon;
+		return (
+			<li key={item.href}>
+				<Link
+					href={item.href}
+					onClick={onClose}
+					className={`
+						flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
+						${
+							isActive
+								? "bg-navy-800 text-white"
+								: "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+						}
+					`}
+				>
+					<Icon className="h-4 w-4 shrink-0" />
+					{item.label}
+				</Link>
+			</li>
+		);
 	};
 
 	return (
@@ -86,29 +129,24 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 				{/* Navigation */}
 				<nav className="flex-1 overflow-y-auto py-4 px-3">
 					<ul className="space-y-1">
-						{navItems.map((item) => {
-							const isActive = pathname === item.href;
-							const Icon = item.icon;
-
-							return (
-								<li key={item.href}>
-									<Link
-										href={item.href}
-										onClick={onClose}
-										className={`
-											flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
-											${
-												isActive
-													? "bg-navy-800 text-white"
-													: "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
-											}
-										`}
-									>
-										<Icon className="h-4 w-4 shrink-0" />
-										{item.label}
-									</Link>
-								</li>
-							);
+						{navStructure.map((entry) => {
+							if (isGroup(entry)) {
+								return (
+									<li key={entry.groupLabel}>
+										{/* Group label */}
+										<div className="flex items-center gap-2 px-3 pt-4 pb-1.5">
+											<Globe className="h-3 w-3 text-neutral-400 shrink-0" />
+											<span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">
+												{entry.groupLabel}
+											</span>
+										</div>
+										<ul className="space-y-0.5">
+											{entry.items.map(renderNavItem)}
+										</ul>
+									</li>
+								);
+							}
+							return renderNavItem(entry);
 						})}
 					</ul>
 				</nav>

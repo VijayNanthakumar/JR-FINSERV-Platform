@@ -18,6 +18,7 @@ export function ContactForm() {
 	const [errors, setErrors] = useState<Record<string, string>>({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [submitError, setSubmitError] = useState<string | null>(null);
 
 	const validateForm = () => {
 		const newErrors: Record<string, string> = {};
@@ -64,16 +65,44 @@ export function ContactForm() {
 		}
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!validateForm()) return;
 
 		setIsLoading(true);
-		// Mock API submission latency
-		setTimeout(() => {
-			setIsLoading(false);
+		setSubmitError(null);
+
+		try {
+			const res = await fetch("/api/enquiries", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					name: form.name,
+					phone: form.mobile,   // DB column is `phone`
+					email: form.email || undefined,
+					service: form.service,
+					message: form.message,
+				}),
+			});
+
+			const data = await res.json();
+
+			if (!res.ok || !data.success) {
+				setSubmitError(
+					data.message ?? "Something went wrong. Please try again.",
+				);
+				return;
+			}
+
+			// Success — show the confirmation screen
 			setIsSubmitted(true);
-		}, 1500);
+		} catch {
+			setSubmitError(
+				"Unable to reach the server. Please check your connection and try again.",
+			);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	if (isSubmitted) {
@@ -90,6 +119,7 @@ export function ContactForm() {
 				<Button
 					onClick={() => {
 						setForm({ name: "", mobile: "", email: "", service: "", message: "", consent: false });
+						setSubmitError(null);
 						setIsSubmitted(false);
 					}}
 					variant="secondary"
@@ -265,6 +295,14 @@ export function ContactForm() {
 					</span>
 				)}
 			</div>
+
+			{/* API-level submission error */}
+			{submitError && (
+				<div className="flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+					<AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+					<span>{submitError}</span>
+				</div>
+			)}
 
 			{/* Submit Button */}
 			<Button
