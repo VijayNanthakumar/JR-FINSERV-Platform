@@ -9,12 +9,9 @@ import {
   TrendingUp,
   Target,
   ArrowRight,
-  CheckCircle2,
   Sparkles,
 } from "lucide-react";
 import { Card } from "@/components/common/Card";
-import { Button } from "@/components/common/Button";
-import { motion, AnimatePresence } from "framer-motion";
 
 export type CalculatorType =
   | "sip"
@@ -113,7 +110,6 @@ function numberToWordsINR(amount: number): string {
 
 export function MutualFundCalculatorsSection() {
   const [activeTab, setActiveTab] = useState<CalculatorType>("sip");
-  const [showInteractiveEngine, setShowInteractiveEngine] = useState(false);
 
   // Form input states
   // 1. SIP
@@ -177,7 +173,6 @@ export function MutualFundCalculatorsSection() {
   // Handle "Try Now" click
   const handleTryNow = (calcId: CalculatorType) => {
     setActiveTab(calcId);
-    setShowInteractiveEngine(true);
     // Smooth scroll to interactive engine
     setTimeout(() => {
       const el = document.getElementById("interactive-calculator-engine");

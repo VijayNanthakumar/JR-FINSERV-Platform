@@ -102,7 +102,18 @@ export function groupPartnersByCategory(partners: Partner[]): PartnerCategory[] 
     });
   }
 
-  return Array.from(map.values());
+  const getCategoryPriority = (categoryName: string): number => {
+    const cat = categoryName.toLowerCase();
+    if (cat.includes("life") || cat.includes("lic")) return 1;
+    if (cat.includes("health") || cat.includes("star")) return 2;
+    if (cat.includes("general") || cat.includes("vehicle")) return 3;
+    if (cat.includes("mutual") || cat.includes("amc")) return 4;
+    return 99;
+  };
+
+  return Array.from(map.values()).sort(
+    (a, b) => getCategoryPriority(a.name) - getCategoryPriority(b.name)
+  );
 }
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────

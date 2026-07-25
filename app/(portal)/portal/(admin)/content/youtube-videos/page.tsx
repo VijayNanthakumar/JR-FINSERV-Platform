@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { Video, Plus, X, Play, ExternalLink } from "lucide-react";
-import Image from "next/image";
 import { SectionHeader } from "@/components/admin/cms/SectionHeader";
 import { ContentCard } from "@/components/admin/cms/ContentCard";
 import { StatusToggle } from "@/components/admin/cms/StatusToggle";
@@ -11,7 +10,7 @@ import { EmptyState } from "@/components/admin/cms/EmptyState";
 import { LoadingState } from "@/components/admin/cms/LoadingState";
 import { SearchBar } from "@/components/admin/cms/SearchBar";
 import { VIDEO_CATEGORIES, type YouTubeVideo } from "@/types/cms";
-import { extractYouTubeId, getYouTubeThumbnailUrl, getYouTubeEmbedUrl } from "@/lib/youtube";
+import { extractYouTubeId, getYouTubeThumbnailUrl } from "@/lib/youtube";
 
 function Toast({ message, type }: { message: string; type: "success" | "error" }) {
   return (

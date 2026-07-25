@@ -57,7 +57,7 @@ const faqData = [
 	{
 		question: "What is Zero Depreciation car insurance?",
 		answer: "Zero Depreciation is an add-on cover. In standard comprehensive policies, insurers deduct depreciation on rubber, glass, and metal parts during claims. A Zero-Dep cover pays the full replacement value without deductions, minimizing your out-of-pocket costs.",
-		category: "vehicle",
+		category: "general-insurance",
 	},
 	// General FAQs
 	{
@@ -82,12 +82,11 @@ export default function FAQPage() {
 	const categories = [
 		{ id: "all", label: "All Questions" },
 		{ id: "general", label: "General Info" },
-		{ id: "mutual-funds", label: "Mutual Funds" },
-		{ id: "lic", label: "LIC Policies" },
+		{ id: "lic", label: "LIC Life Insurance" },
 		{ id: "health", label: "Star Health Insurance" },
-		{ id: "general-insurance", label: "General/Business" },
-		{ id: "vehicle", label: "Vehicle Insurance" },
-		{ id: "billing", label: "Billing &amp; Payments" },
+		{ id: "general-insurance", label: "General & Vehicle Insurance" },
+		{ id: "mutual-funds", label: "Mutual Funds" },
+		{ id: "billing", label: "Billing & Payments" },
 	];
 
 	// Filter logic

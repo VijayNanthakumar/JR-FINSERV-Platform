@@ -53,7 +53,7 @@ const FALLBACK_SLIDES: HeroSlide[] = [
 		id: "fallback-3",
 		title: "Protection That Shows Up.",
 		subtitle:
-			"LIC, health, general, and vehicle insurance with dedicated claims support from application to settlement.",
+			"LIC, health, and general insurance with dedicated claims support from application to settlement.",
 		primary_cta_text: "View Insurance Plans",
 		primary_cta_link: "/services",
 		secondary_cta_text: "Talk to an Advisor",

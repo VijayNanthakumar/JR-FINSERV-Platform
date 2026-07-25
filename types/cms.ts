@@ -93,7 +93,6 @@ export const VIDEO_CATEGORIES = [
   "LIC",
   "Health Insurance",
   "General Insurance",
-  "Vehicle Insurance",
   "Retirement Planning",
   "Tax Saving",
   "Other",

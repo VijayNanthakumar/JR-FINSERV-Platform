@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { ImageIcon, Upload, Loader2, Plus, X } from "lucide-react";
+import { ImageIcon, Upload, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/admin/cms/SectionHeader";
 import { ContentCard } from "@/components/admin/cms/ContentCard";

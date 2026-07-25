@@ -22,10 +22,10 @@ function Toast({ message, type }: { message: string; type: "success" | "error" }
 }
 
 const CATEGORY_SUGGESTIONS = [
-  "Mutual Funds",
   "Life Insurance",
   "Health Insurance",
-  "General & Vehicle Insurance",
+  "General Insurance",
+  "Mutual Funds",
   "Pension & Retirement",
   "Other",
 ];

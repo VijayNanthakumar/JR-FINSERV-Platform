@@ -9,7 +9,7 @@ import { PartnerLogos, type Partner } from "@/components/common/PartnerLogos";
 import { YouTubeVideoSection } from "@/components/common/YouTubeVideoSection";
 import { MutualFundCalculatorsSection } from "@/components/common/MutualFundCalculatorsSection";
 import { ContactConsultationSection } from "@/components/common/ContactConsultationSection";
-import { TrendingUp, ShieldCheck, HeartPulse, Home, Car, CheckCircle2, ArrowRight } from "lucide-react";
+import { TrendingUp, ShieldCheck, HeartPulse, Home, CheckCircle2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { company } from "@/config/company";
 import type { YouTubeVideo, Partner as CMSPartner } from "@/types/cms";
@@ -94,36 +94,15 @@ const servicesData: Record<string, ServiceDetail> = {
 	},
 	"general-insurance": {
 		name: "General Insurance",
-		headline: "Protect Your Property and Business",
-		description: "Insurance cover for your shop, office, or business assets against fire, theft, and other unexpected events.",
+		headline: "Protect Your Vehicles, Property & Assets",
+		description: "Comprehensive general insurance covering your cars, two-wheelers, shop, office, and business assets against theft, damage, and accidents.",
 		icon: Home,
 		iconBg: "bg-amber-100/60",
 		iconColor: "text-amber-600",
 		whatWeOffer: [
-			"Cover for shops, offices, and warehouses",
-			"Group health cover for your employees",
-			"Cover for goods in transit and shipments",
-		],
-		partnerSection: {
-			title: "We Are Empanelled With",
-			variant: "grid",
-			partners: [
-				{ name: "Chola MS General Insurance" },
-				{ name: "National Insurance" },
-			],
-		},
-	},
-	"vehicle-insurance": {
-		name: "Vehicle Insurance",
-		headline: "Stress-Free Cover for Your Car or Bike",
-		description: "Comprehensive or third-party vehicle insurance with easy, cashless claims when you need them most.",
-		icon: Car,
-		iconBg: "bg-blue-50",
-		iconColor: "text-blue-600",
-		whatWeOffer: [
-			"Comprehensive cover for cars, including accidents and theft",
-			"Two-wheeler policies with instant issuance",
-			"Basic third-party cover if you just need the legal minimum",
+			"Comprehensive vehicle insurance for cars, bikes & commercial vehicles with instant claims",
+			"Property, shop, office, and warehouse asset protection against fire & theft",
+			"Group employee insurance and goods in transit cover",
 		],
 		partnerSection: {
 			title: "We Are Empanelled With",
@@ -166,7 +145,7 @@ export function ServiceDetailContent({
 		if (slug === "health-insurance") {
 			return cat.includes("health") || cat.includes("star") || pName.includes("star health") || pName.includes("health");
 		}
-		if (slug === "general-insurance" || slug === "vehicle-insurance") {
+		if (slug === "general-insurance") {
 			return cat.includes("general") || cat.includes("vehicle") || pName.includes("chola") || pName.includes("national") || pName.includes("insurance");
 		}
 		return false;

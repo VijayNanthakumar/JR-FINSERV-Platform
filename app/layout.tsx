@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 		default: `${company.name} · Trusted Financial Advisory in Tamil Nadu`,
 		template: `%s | ${company.name}`
 	},
-	description: `${company.name} is a trusted local financial advisory helping families across Tamil Nadu with Mutual Funds, LIC, Health, General and Vehicle Insurance.`,
-	keywords: ["mutual funds", "LIC agent", "health insurance", "vehicle insurance", "financial advisor Tamil Nadu"],
+	description: `${company.name} is a trusted local financial advisory helping families across Tamil Nadu with Mutual Funds, LIC, Health, and General Insurance.`,
+	keywords: ["mutual funds", "LIC agent", "health insurance", "general insurance", "financial advisor Tamil Nadu"],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

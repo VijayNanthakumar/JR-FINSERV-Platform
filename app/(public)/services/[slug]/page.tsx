@@ -14,7 +14,6 @@ const serviceNames: Record<string, string> = {
 	lic: "LIC Life Insurance Advisory",
 	"health-insurance": "Star Health Insurance Plans",
 	"general-insurance": "General Insurance Solutions",
-	"vehicle-insurance": "Vehicle Insurance Cover",
 };
 
 const slugToCategory: Record<string, string> = {
@@ -22,7 +21,6 @@ const slugToCategory: Record<string, string> = {
 	lic: "LIC",
 	"health-insurance": "Health Insurance",
 	"general-insurance": "General Insurance",
-	"vehicle-insurance": "Vehicle Insurance",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -58,6 +56,5 @@ export async function generateStaticParams() {
 		{ slug: "lic" },
 		{ slug: "health-insurance" },
 		{ slug: "general-insurance" },
-		{ slug: "vehicle-insurance" },
 	];
 }

@@ -238,8 +238,7 @@ export function ContactForm() {
 					<option value="mutual-funds">Mutual Funds Advisory</option>
 					<option value="lic">LIC Life Insurance</option>
 					<option value="health-insurance">Star Health Insurance Plan</option>
-					<option value="general-insurance">General Asset Insurance</option>
-					<option value="vehicle-insurance">Vehicle Insurance</option>
+					<option value="general-insurance">General & Vehicle Insurance</option>
 				</select>
 				{errors.service && (
 					<span className="flex items-center gap-1.5 text-xs text-red-600 mt-1">

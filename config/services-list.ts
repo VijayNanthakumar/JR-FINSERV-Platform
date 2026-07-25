@@ -12,7 +12,6 @@ import {
 	ShieldCheck,
 	HeartPulse,
 	Home,
-	Car,
 } from "lucide-react";
 
 export const servicesList = [
@@ -43,17 +42,9 @@ export const servicesList = [
 	{
 		name: "General Insurance",
 		href: "/services/general-insurance",
-		description: "Protect your commercial and personal assets from unexpected liabilities.",
+		description: "Comprehensive insurance for your vehicles, property, commercial & business assets.",
 		icon: Home,
 		bgColor: "bg-amber-100/60",
 		iconColor: "text-amber-600",
-	},
-	{
-		name: "Vehicle Insurance",
-		href: "/services/vehicle-insurance",
-		description: "Stress-free insurance for your cars and two-wheelers with instant claims.",
-		icon: Car,
-		bgColor: "bg-blue-50",
-		iconColor: "text-blue-600",
 	},
 ];

@@ -55,7 +55,7 @@ const testimonialsList = [
 		role: "Logistics Manager",
 		rating: 5,
 		quote: `I secure both my commercial trucks and private SUV policies through ${company.name}. Claim coordinates are handled seamlessly. Zero hassle during cashless repairs.`,
-		serviceTag: "Vehicle Insurance",
+		serviceTag: "General Insurance",
 	},
 ];
 
@@ -65,10 +65,10 @@ export default function TestimonialsPage() {
 
 	const categories = [
 		{ id: "all", label: "All Reviews" },
-		{ id: "Mutual Funds", label: "Mutual Funds" },
-		{ id: "LIC", label: "LIC Policies" },
+		{ id: "Life Insurance", label: "Life Insurance (LIC)" },
 		{ id: "Star Health Insurance", label: "Star Health Insurance" },
-		{ id: "Vehicle Insurance", label: "Vehicle Insurance" },
+		{ id: "General Insurance", label: "General Insurance" },
+		{ id: "Mutual Funds", label: "Mutual Funds" },
 	];
 
 	// Filter

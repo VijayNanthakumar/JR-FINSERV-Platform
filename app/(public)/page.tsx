@@ -1,6 +1,5 @@
 import React from "react";
 import { Card } from "@/components/common/Card";
-import { ContactForm } from "@/components/forms/ContactForm";
 import { HeroSlider } from "@/components/layout/HeroSlider";
 import { ServicesGrid } from "@/components/layout/ServicesGrid";
 import { FounderSection } from "@/components/layout/FounderSection";
@@ -11,14 +10,8 @@ import {
 	Users,
 	Clock,
 	HeartHandshake,
-	Phone,
-	Mail,
-	MapPin,
-	MessageSquare,
 	Star,
-	Play,
 	Award,
-	Navigation,
 	TreePine,
 	Eye,
 	Activity,
@@ -76,28 +69,6 @@ export default async function HomePage() {
 		},
 	];
 
-	// Customer video review placeholders (to be updated by owner later)
-	const videoReviews = [
-		{
-			name: "Senthil Kumar",
-			title: "Sustained Wealth Growth via SIPs",
-			duration: "1:42",
-			thumbnail: "/images/gallery/unnamed (1)1.jpg",
-		},
-		{
-			name: "Dr. Anjali R.",
-			title: "Hassle-Free Health Claim Coordination",
-			duration: "2:05",
-			thumbnail: "/images/client-events/award 5.jpg",
-		},
-		{
-			name: "M. Balaji",
-			title: "LIC Retirement Planning Advisory",
-			duration: "1:58",
-			thumbnail: "/images/client-events/unnamed 1.jpg",
-		},
-	];
-
 	// Community impact details
 	const communityImpact = [
 		{
@@ -132,40 +103,6 @@ export default async function HomePage() {
 			icon: Award,
 			color: "text-amber-600 bg-amber-50",
 		},
-	];
-
-	const primaryContacts = [
-		{
-			title: "Call Us",
-			value: company.phone.display,
-			href: company.phone.href,
-			icon: Phone,
-			description: company.officeHours.short,
-		},
-		{
-			title: "WhatsApp Us",
-			value: company.whatsapp.display,
-			href: company.whatsapp.href,
-			icon: MessageSquare,
-			description: "Instant support chat",
-		},
-	];
-
-	const secondaryContacts = [
-		{ title: "Email Us", value: company.email.display, href: company.email.href, icon: Mail },
-		{
-			title: "Visit Our Office",
-			value: company.address.short,
-			href: undefined,
-			icon: MapPin,
-		},
-	];
-
-	// ─── Static Office Photos (Homepage does not query gallery_images) ──────────
-	const staticGallery = [
-		{ src: "/images/office-team/unnamed.jpg", caption: "Office Exterior", alt: "Office Front View" },
-		{ src: "/images/gallery/sg.jpg", caption: "Reception Desk", alt: "Reception Area" },
-		{ src: "/images/gallery/unnamed (1)1.jpg", caption: "Meeting Room", alt: "Client Meeting Room" },
 	];
 
 	return (
@@ -467,10 +404,10 @@ export default async function HomePage() {
 						/* Fallback: hardcoded partners when CMS is empty */
 						<div className="flex flex-col gap-10">
 							{[
-								{ name: "Mutual Funds", logos: [{ name: "Nippon India Mutual Fund", src: "/images/partner-logos/nippon.jpg" }, { name: "SBI Mutual Fund", src: "/images/partner-logos/sbi.jpg" }, { name: "ICICI Prudential Mutual Fund", src: "/images/partner-logos/icici.jpg" }, { name: "Mahindra Manulife Mutual Fund", src: "/images/partner-logos/mahindra.png" }, { name: "Motilal Oswal Mutual Fund", src: "/images/partner-logos/motilal.jpg" }, { name: "Aditya Birla Sun Life Mutual Fund", src: "/images/partner-logos/abs.jpg" }] },
 								{ name: "Life Insurance", logos: [{ name: "LIC", src: "/images/partner-logos/lic.png" }] },
 								{ name: "Health Insurance", logos: [{ name: "Star Health Insurance", src: "/images/partner-logos/star-health.jpg" }] },
 								{ name: "General & Vehicle Insurance", logos: [{ name: "Chola MS General Insurance", src: "/images/partner-logos/chola.jpg" }, { name: "National Insurance", src: "/images/partner-logos/national.jpg" }] },
+								{ name: "Mutual Funds", logos: [{ name: "Nippon India Mutual Fund", src: "/images/partner-logos/nippon.jpg" }, { name: "SBI Mutual Fund", src: "/images/partner-logos/sbi.jpg" }, { name: "ICICI Prudential Mutual Fund", src: "/images/partner-logos/icici.jpg" }, { name: "Mahindra Manulife Mutual Fund", src: "/images/partner-logos/mahindra.png" }, { name: "Motilal Oswal Mutual Fund", src: "/images/partner-logos/motilal.jpg" }, { name: "Aditya Birla Sun Life Mutual Fund", src: "/images/partner-logos/abs.jpg" }] },
 							].map((category) => (
 								<div key={category.name} className="flex flex-col gap-4 border border-neutral-200/60 rounded-3xl p-6 md:p-8 bg-neutral-50/50">
 									<h3 className="font-display font-semibold text-sm text-neutral-500 uppercase tracking-widest text-left pl-2 border-l-2 border-blue-600">{category.name}</h3>
