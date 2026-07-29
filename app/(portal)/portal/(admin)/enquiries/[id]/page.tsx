@@ -8,10 +8,6 @@ export const metadata = {
 	title: "Enquiry Details | JR FINSERV Admin",
 };
 
-
-
-// ─── Not found ────────────────────────────────────────────────────────────────
-
 function NotFound() {
 	return (
 		<div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-neutral-200 bg-white py-16 text-center">
@@ -35,47 +31,41 @@ function NotFound() {
 	);
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
 type PageProps = { params: Promise<{ id: string }> };
 
-/**
- * /portal/enquiries/[id] — Enquiry Details Page
- *
- * Server Component: fetches a single enquiry from Supabase.
- * Passes it to the EnquiryDetails client component.
- * Renders NotFound if the ID doesn't match any row.
- * Shows a skeleton while loading (via Suspense boundary in layout).
- */
 export default async function EnquiryDetailPage({ params }: PageProps) {
 	const { id } = await params;
 
-	const supabase = createServerSupabaseClient();
-
-	const { data, error } = await supabase
-		.from("enquiries")
-		.select("id, name, phone, email, service, message, status, notes, created_at, updated_at")
-		.eq("id", id)
-		.single();
-
-	// Supabase returns PGRST116 when no row matches — treat as not found
-	if (error?.code === "PGRST116" || !data) {
+	if (!id) {
 		return <NotFound />;
 	}
 
-	// Any other Supabase error — friendly card, never raw message
+	const supabase = createServerSupabaseClient();
+
+	// 1. Fetch enquiry with select("*") to be 100% schema resilient
+	const { data, error } = await supabase
+		.from("enquiries")
+		.select("*")
+		.eq("id", id)
+		.maybeSingle();
+
 	if (error) {
-		console.error(`[EnquiryDetailPage] id=${id}`, error);
-		return (
-			<div className="rounded-xl border border-red-200 bg-red-50 px-6 py-10 text-center">
-				<p className="text-sm font-semibold text-red-700 font-body">
-					Failed to load enquiry.
-				</p>
-				<p className="mt-1 text-xs text-red-500 font-body">
-					Please refresh the page. If the problem persists, contact your developer.
-				</p>
-			</div>
-		);
+		console.error(`[EnquiryDetailPage] Supabase fetch error for id=${id}:`, error);
+	}
+
+	if (!data) {
+		return <NotFound />;
+	}
+
+	// 2. Mark as read in background without blocking rendering
+	try {
+		await supabase
+			.from("enquiries")
+			.update({ is_read: true, updated_at: new Date().toISOString() })
+			.eq("id", id);
+	} catch (err) {
+		// Non-critical: ignore if is_read column is not present
+		console.warn(`[EnquiryDetailPage] Safe is_read update skipped for id=${id}:`, err);
 	}
 
 	const enquiry = data as Enquiry;

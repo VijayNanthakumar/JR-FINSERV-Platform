@@ -1,19 +1,62 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
-import type { EnquiryStatus } from "@/types/enquiry";
+import type { EnquiryStatus, Enquiry } from "@/types/enquiry";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
+// ─── GET /api/enquiries/[id] ──────────────────────────────────────────────────
+// Admin endpoint — fetches a single enquiry by ID.
+export async function GET(_request: NextRequest, context: RouteContext) {
+	const { id } = await context.params;
+
+	if (!id) {
+		return NextResponse.json(
+			{ success: false, message: "Enquiry ID is required." },
+			{ status: 400 }
+		);
+	}
+
+	const supabase = createServerSupabaseClient();
+
+	const { data, error } = await supabase
+		.from("enquiries")
+		.select("*")
+		.eq("id", id)
+		.maybeSingle();
+
+	if (error || !data) {
+		console.error(`[GET /api/enquiries/${id}] Error:`, error?.message);
+		return NextResponse.json(
+			{ success: false, message: "Enquiry not found." },
+			{ status: 404 }
+		);
+	}
+
+	// Background mark as read
+	try {
+		await supabase
+			.from("enquiries")
+			.update({ is_read: true, updated_at: new Date().toISOString() })
+			.eq("id", id);
+	} catch {
+		// Ignore if column doesn't exist
+	}
+
+	return NextResponse.json({
+		success: true,
+		enquiry: data as Enquiry,
+	});
+}
+
 // ─── PATCH /api/enquiries/[id] ────────────────────────────────────────────────
-// Admin endpoint — updates status and/or notes for a single enquiry.
-// Always sets updated_at to the current timestamp.
+// Admin endpoint — updates status, notes, and/or is_read for a single enquiry.
 export async function PATCH(request: NextRequest, context: RouteContext) {
 	const { id } = await context.params;
 
 	if (!id) {
 		return NextResponse.json(
 			{ success: false, message: "Enquiry ID is required." },
-			{ status: 400 },
+			{ status: 400 }
 		);
 	}
 
@@ -23,7 +66,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 	} catch {
 		return NextResponse.json(
 			{ success: false, message: "Invalid JSON body." },
-			{ status: 400 },
+			{ status: 400 }
 		);
 	}
 
@@ -32,22 +75,24 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 		updated_at: new Date().toISOString(),
 	};
 
-	// status (optional in payload)
 	if ("status" in body) {
 		const s = body.status as string;
 		if (!VALID_STATUSES.includes(s as EnquiryStatus)) {
 			return NextResponse.json(
 				{ success: false, message: "Invalid status value." },
-				{ status: 400 },
+				{ status: 400 }
 			);
 		}
 		patch.status = s;
 	}
 
-	// notes (optional in payload, allow null to clear)
 	if ("notes" in body) {
 		patch.notes =
 			body.notes === null ? null : String(body.notes ?? "").trim() || null;
+	}
+
+	if ("is_read" in body) {
+		patch.is_read = Boolean(body.is_read);
 	}
 
 	const supabase = createServerSupabaseClient();
@@ -57,10 +102,28 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 		.eq("id", id);
 
 	if (error) {
+		// If error is caused by missing is_read column, retry without is_read
+		if ("is_read" in patch) {
+			delete patch.is_read;
+			const { error: retryError } = await supabase
+				.from("enquiries")
+				.update(patch)
+				.eq("id", id);
+
+			if (retryError) {
+				console.error(`[PATCH /api/enquiries/${id}] Retry error:`, retryError);
+				return NextResponse.json(
+					{ success: false, message: "Failed to update enquiry. Please try again." },
+					{ status: 500 }
+				);
+			}
+			return NextResponse.json({ success: true, message: "Enquiry updated." });
+		}
+
 		console.error(`[PATCH /api/enquiries/${id}]`, error);
 		return NextResponse.json(
 			{ success: false, message: "Failed to update enquiry. Please try again." },
-			{ status: 500 },
+			{ status: 500 }
 		);
 	}
 
@@ -75,7 +138,7 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
 	if (!id) {
 		return NextResponse.json(
 			{ success: false, message: "Enquiry ID is required." },
-			{ status: 400 },
+			{ status: 400 }
 		);
 	}
 
@@ -86,7 +149,7 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
 		console.error(`[DELETE /api/enquiries/${id}]`, error);
 		return NextResponse.json(
 			{ success: false, message: "Failed to delete enquiry. Please try again." },
-			{ status: 500 },
+			{ status: 500 }
 		);
 	}
 

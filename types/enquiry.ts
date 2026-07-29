@@ -12,7 +12,19 @@ export interface Enquiry {
 	service: string;
 	message: string;
 	status: EnquiryStatus;
+	is_read?: boolean;
 	notes: string | null;
 	created_at: string;
 	updated_at: string;
+}
+
+export interface EnquiryStats {
+	todayCount: number;
+	weekCount: number;
+	monthCount: number;
+	pendingCount: number;
+	contactedCount: number;
+	closedCount: number;
+	totalCount: number;
+	unreadCount: number;
 }
