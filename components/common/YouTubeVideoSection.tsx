@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Play } from "lucide-react";
 import { Card } from "@/components/common/Card";
-import { VideoModal } from "@/components/common/VideoModal";
+const VideoModal = dynamic(
+  () => import("@/components/common/VideoModal").then((mod) => mod.VideoModal),
+);
 import type { YouTubeVideo } from "@/types/cms";
 import { extractYouTubeId, getYouTubeThumbnailUrl } from "@/lib/youtube";
 

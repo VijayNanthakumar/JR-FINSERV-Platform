@@ -24,8 +24,9 @@ export function FounderSection() {
 							src="/images/founder/founder.png"
 							alt="Ln. V. Janarthanam, Managing Director"
 							fill
-							className="object-cover"
 							priority
+							unoptimized
+							className="object-cover"
 						/>
 					</div>
 				</motion.div>

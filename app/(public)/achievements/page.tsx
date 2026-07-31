@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+
 import Link from "next/link";
 import { PageBanner } from "@/components/common/PageBanner";
 import { AchievementCard } from "@/components/cards/AchievementCard";
@@ -146,7 +146,7 @@ export default function AchievementsPage() {
 						Talk to our advisory desk about mutual funds, LIC, or insurance — honest guidance, no obligation.
 					</p>
 					<div className="mt-2 flex flex-col sm:flex-row gap-4">
-						<Link href="/contact">
+						<Link href="/contact#consultation">
 							<Button variant="primary-gradient" className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400">
 								Book Free Callback
 							</Button>

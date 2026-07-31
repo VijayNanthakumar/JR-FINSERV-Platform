@@ -39,7 +39,7 @@ export function FloatingActions() {
 						transition={{ duration: 0.2 }}
 						onClick={scrollToTop}
 						aria-label="Back to top"
-						className="h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-navy-900 text-white shadow-lg flex items-center justify-center hover:bg-navy-800 transition-colors cursor-pointer"
+						className="h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-navy-900 text-white shadow-lg flex items-center justify-center hover:bg-navy-800 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
 					>
 						<ArrowUp className="h-5 w-5" />
 					</motion.button>
@@ -51,7 +51,7 @@ export function FloatingActions() {
 				aria-label={`Call ${company.name}`}
 				whileHover={{ scale: 1.08 }}
 				whileTap={{ scale: 0.95 }}
-				className="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center hover:bg-blue-500 transition-colors cursor-pointer"
+				className="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center hover:bg-blue-500 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
 			>
 				<Phone className="h-5 w-5 sm:h-6 sm:w-6" />
 			</motion.a>
@@ -63,7 +63,7 @@ export function FloatingActions() {
 				aria-label="Chat on WhatsApp"
 				whileHover={{ scale: 1.08 }}
 				whileTap={{ scale: 0.95 }}
-				className="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-emerald-500 text-white shadow-lg flex items-center justify-center hover:bg-emerald-400 transition-colors cursor-pointer relative"
+				className="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-emerald-500 text-white shadow-lg flex items-center justify-center hover:bg-emerald-400 transition-colors cursor-pointer relative focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
 			>
 				<span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-20" />
 				<WhatsAppIcon className="h-6 w-6 sm:h-7 sm:w-7 relative" />

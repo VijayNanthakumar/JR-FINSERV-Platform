@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+
 import { Settings, Shield, Globe, Mail, Phone, MapPin } from "lucide-react";
 import { SectionHeader } from "@/components/admin/cms/SectionHeader";
 import { ContentCard } from "@/components/admin/cms/ContentCard";

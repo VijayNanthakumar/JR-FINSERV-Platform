@@ -14,6 +14,7 @@ import type {
   PartnerCategory,
   Testimonial,
   YouTubeVideo,
+  Notice,
 } from "@/types/cms";
 
 // ─── Hero Slides ─────────────────────────────────────────────────────────────
@@ -161,6 +162,38 @@ export async function getActiveYouTubeVideos(category?: string): Promise<YouTube
     return (data as YouTubeVideo[]) ?? [];
   } catch (err) {
     console.error("[cms-data] getActiveYouTubeVideos unexpected error:", err);
+    return [];
+  }
+}
+
+// ─── Notices ─────────────────────────────────────────────────────────────────
+
+/**
+ * Fetch active notices for a given service category.
+ * Always includes "All Services" notices alongside the specific category.
+ * If no category is provided, returns ALL active notices.
+ */
+export async function getActiveNotices(category?: string): Promise<Notice[]> {
+  try {
+    const supabase = createServerSupabaseClient();
+    let query = supabase
+      .from("notices")
+      .select("*")
+      .eq("is_active", true);
+
+    if (category) {
+      query = query.in("service_category", [category, "All Services"]);
+    }
+
+    const { data, error } = await query.order("display_order", { ascending: true });
+
+    if (error) {
+      console.error("[cms-data] getActiveNotices error:", error.message);
+      return [];
+    }
+    return (data as Notice[]) ?? [];
+  } catch (err) {
+    console.error("[cms-data] getActiveNotices unexpected error:", err);
     return [];
   }
 }

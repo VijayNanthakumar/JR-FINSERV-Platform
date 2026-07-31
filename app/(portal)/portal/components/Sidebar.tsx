@@ -15,6 +15,7 @@ import {
 	ChevronLeft,
 	Globe,
 	Video,
+	Megaphone,
 } from "lucide-react";
 
 interface NavItem {
@@ -39,6 +40,7 @@ const navStructure: (NavItem | NavGroup)[] = [
 			{ label: "Partners", href: "/portal/content/partners", icon: Handshake },
 			{ label: "Testimonials", href: "/portal/content/testimonials", icon: Quote },
 			{ label: "YouTube Videos", href: "/portal/content/youtube-videos", icon: Video },
+			{ label: "Notices", href: "/portal/content/notices", icon: Megaphone },
 		],
 	},
 ];

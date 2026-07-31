@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 import { Video, Plus, X, Play, ExternalLink } from "lucide-react";
 import { SectionHeader } from "@/components/admin/cms/SectionHeader";
 import { ContentCard } from "@/components/admin/cms/ContentCard";
@@ -165,14 +166,16 @@ function VideoForm({
             <span className="text-[10px] text-emerald-600 font-mono">ID: {videoId}</span>
           </span>
           <div className="relative aspect-video max-w-sm rounded-lg overflow-hidden border border-neutral-200 bg-black mt-1 group">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={thumbnailUrl}
               alt="YouTube Thumbnail Preview"
-              className="w-full h-full object-cover"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = `https://i.ytimg.com/vi/${videoId}/0.jpg`;
-                            }}
+              fill
+              sizes="384px"
+              unoptimized
+              className="object-cover"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = `https://i.ytimg.com/vi/${videoId}/0.jpg`;
+              }}
             />
             <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
               <div className="h-10 w-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg">
@@ -475,11 +478,13 @@ export default function YouTubeVideosCmsPage() {
                       {/* Video Thumbnail Preview */}
                       <div className="relative aspect-video h-20 w-36 rounded-xl border border-neutral-200 bg-black overflow-hidden shrink-0 group">
                         {thumbUrl ? (
-                          /* eslint-disable-next-line @next/next/no-img-element */
-                          <img
+                          <Image
                             src={thumbUrl}
                             alt={video.title}
-                            className="w-full h-full object-cover"
+                            fill
+                            sizes="144px"
+                            unoptimized
+                            className="object-cover"
                             onError={(e) => {
                               (e.target as HTMLImageElement).src = `https://i.ytimg.com/vi/${videoId}/0.jpg`;
                             }}

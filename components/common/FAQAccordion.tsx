@@ -32,9 +32,11 @@ export function FAQAccordion({ items, className }: FAQAccordionProps) {
 						className="border-b border-neutral-200 dark:border-navy-800"
 					>
 						<button
+							type="button"
 							onClick={() => toggleItem(index)}
-							className="flex items-center justify-between w-full py-5 text-left font-display font-semibold text-base md:text-lg text-navy-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none cursor-pointer group"
+							className="flex items-center justify-between w-full py-5 text-left font-display font-semibold text-base md:text-lg text-navy-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg cursor-pointer group"
 							aria-expanded={isOpen}
+							aria-controls={`faq-answer-${index}`}
 						>
 							<span>{item.question}</span>
 							<ChevronDown
@@ -48,6 +50,7 @@ export function FAQAccordion({ items, className }: FAQAccordionProps) {
 						<AnimatePresence initial={false}>
 							{isOpen && (
 								<motion.div
+									id={`faq-answer-${index}`}
 									initial={{ height: 0, opacity: 0 }}
 									animate={{ height: "auto", opacity: 1 }}
 									exit={{ height: 0, opacity: 0 }}

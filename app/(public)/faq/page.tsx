@@ -168,7 +168,7 @@ export default function FAQPage() {
 						Our advisory desks are available {company.officeHours.short}. Call directly to speak with Ln. V. Janarthanam or our claims coordination specialists.
 					</p>
 					<div className="mt-2 flex flex-col sm:flex-row gap-4 w-full justify-center">
-						<Link href="/contact" className="w-full sm:w-auto">
+						<Link href="/contact#consultation" className="w-full sm:w-auto">
 							<Button variant="primary-gradient" className="w-full sm:w-auto">
 								Contact Support Desk
 							</Button>

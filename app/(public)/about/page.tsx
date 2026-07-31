@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+
 import Link from "next/link";
 import { PageBanner } from "@/components/common/PageBanner";
 import { Card } from "@/components/common/Card";
@@ -112,7 +112,7 @@ export default function AboutPage() {
 					<p className="text-sm text-neutral-300 max-w-lg leading-relaxed">
 						Talk to our founder or one of our advisors — no obligation, just honest guidance.
 					</p>
-					<Link href="/contact">
+					<Link href="/contact#consultation">
 						<Button variant="primary-gradient" className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400">
 							Contact Us
 						</Button>

@@ -1,9 +1,8 @@
-import React from "react";
 import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/common/ServiceDetailContent";
 import type { Metadata } from "next";
 import { company } from "@/config/company";
-import { getActiveYouTubeVideos, getActivePartners } from "@/lib/cms-data";
+import { getActiveYouTubeVideos, getActivePartners, getActiveNotices } from "@/lib/cms-data";
 
 interface PageProps {
 	params: Promise<{ slug: string }>;
@@ -41,12 +40,13 @@ export default async function ServiceDetailsPage({ params }: PageProps) {
 	}
 
 	const category = slugToCategory[slug] || "Other";
-	const [videos, cmsPartners] = await Promise.all([
+	const [videos, cmsPartners, notices] = await Promise.all([
 		getActiveYouTubeVideos(category),
 		getActivePartners(),
+		getActiveNotices(category),
 	]);
 
-	return <ServiceDetailContent slug={slug} videos={videos} cmsPartners={cmsPartners} />;
+	return <ServiceDetailContent slug={slug} videos={videos} cmsPartners={cmsPartners} notices={notices} />;
 }
 
 // Generate static routes during compilation

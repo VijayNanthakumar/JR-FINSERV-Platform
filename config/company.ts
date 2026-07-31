@@ -2,7 +2,7 @@ export const company = {
 	name: "JR FINSERV",
 	shortName: "JR",
 	tagline: "WEALTH WITH PURPOSE",
-	logo: "/images/logo/logo.jpeg",
+	logo: "/images/logo/logo.webp",
 	phone: {
 		display: "+91 9842762637",
 		value: "+919842762637",

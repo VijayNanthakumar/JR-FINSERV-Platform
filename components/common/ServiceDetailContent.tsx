@@ -1,18 +1,36 @@
 "use client";
 
-import React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { PageBanner } from "@/components/common/PageBanner";
 import { Card } from "@/components/common/Card";
 import { Button } from "@/components/common/Button";
 import { PartnerLogos, type Partner } from "@/components/common/PartnerLogos";
 import { YouTubeVideoSection } from "@/components/common/YouTubeVideoSection";
-import { MutualFundCalculatorsSection } from "@/components/common/MutualFundCalculatorsSection";
+const MutualFundCalculatorsSection = dynamic(
+	() => import("@/components/common/MutualFundCalculatorsSection").then((mod) => mod.MutualFundCalculatorsSection),
+	{
+		loading: () => (
+			<div className="py-20 md:py-28 bg-neutral-50/60 border-b border-neutral-200/80">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6">
+					<div className="h-6 w-64 bg-neutral-200 rounded animate-pulse" />
+					<div className="h-4 w-96 bg-neutral-100 rounded animate-pulse" />
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-6">
+						{Array.from({ length: 6 }).map((_, i) => (
+							<div key={i} className="h-48 bg-neutral-100 rounded-2xl animate-pulse" />
+						))}
+					</div>
+				</div>
+			</div>
+		),
+	},
+);
 import { ContactConsultationSection } from "@/components/common/ContactConsultationSection";
+import { NoticeSection } from "@/components/common/NoticeSection";
 import { TrendingUp, ShieldCheck, HeartPulse, Home, CheckCircle2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { company } from "@/config/company";
-import type { YouTubeVideo, Partner as CMSPartner } from "@/types/cms";
+import type { YouTubeVideo, Partner as CMSPartner, Notice } from "@/types/cms";
 
 interface ServiceDetail {
 	name: string;
@@ -119,12 +137,14 @@ interface ServiceDetailContentProps {
 	slug: string;
 	videos?: YouTubeVideo[];
 	cmsPartners?: CMSPartner[];
+	notices?: Notice[];
 }
 
 export function ServiceDetailContent({
 	slug,
 	videos = [],
 	cmsPartners = [],
+	notices = [],
 }: ServiceDetailContentProps) {
 	const service = servicesData[slug];
 	if (!service) return null;
@@ -258,6 +278,9 @@ export function ServiceDetailContent({
 					variant={service.partnerSection.variant}
 				/>
 			)}
+
+			{/* Service-Specific Notices Section */}
+			<NoticeSection notices={notices} bgClassName="bg-white border-b border-neutral-200" />
 
 			{/* Standardized Contact / Book Consultation Section (Identical to Homepage) */}
 			<ContactConsultationSection

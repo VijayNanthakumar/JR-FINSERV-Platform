@@ -154,7 +154,7 @@ export default function TestimonialsPage() {
 						Secure your family coverage and portfolio returns with certified advisors who prioritize transparency and claims execution.
 					</p>
 					<div className="mt-2 flex gap-4">
-						<Link href="/contact">
+						<Link href="/contact#consultation">
 							<Button variant="primary-gradient">Talk to an Advisor</Button>
 						</Link>
 						<Link href="/services">

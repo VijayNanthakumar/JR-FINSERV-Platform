@@ -7,52 +7,52 @@ import { Phone, Mail, MapPin, ShieldAlert, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { company } from "@/config/company";
 
+const socialLinks = [
+	{
+		name: "Facebook",
+		href: company.social.facebook,
+		icon: (props: React.SVGProps<SVGSVGElement>) => (
+			<svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+				<path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879v-6.988h-2.54V12h2.54V9.797c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+			</svg>
+		)
+	},
+	{
+		name: "Instagram",
+		href: company.social.instagram,
+		icon: (props: React.SVGProps<SVGSVGElement>) => (
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+				<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+				<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+				<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+			</svg>
+		)
+	},
+	{
+		name: "YouTube",
+		href: company.social.youtube,
+		icon: (props: React.SVGProps<SVGSVGElement>) => (
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+				<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+				<polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+			</svg>
+		)
+	},
+];
+
+const companyLinks = [
+	{ name: "About Us", href: "/about" },
+	{ name: "Our Services", href: "/services" },
+	{ name: "Gallery", href: "/gallery" },
+	{ name: "Contact Us", href: "/contact" },
+];
+
 export function Footer() {
 	const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
 
 	const toggleAccordion = (section: string) => {
 		setActiveAccordion(activeAccordion === section ? null : section);
 	};
-
-	const socialLinks = [
-		{
-			name: "Facebook",
-			href: company.social.facebook,
-			icon: (props: React.SVGProps<SVGSVGElement>) => (
-				<svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-					<path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879v-6.988h-2.54V12h2.54V9.797c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
-				</svg>
-			)
-		},
-		{
-			name: "Instagram",
-			href: company.social.instagram,
-			icon: (props: React.SVGProps<SVGSVGElement>) => (
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-					<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-					<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-					<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-				</svg>
-			)
-		},
-		{
-			name: "YouTube",
-			href: company.social.youtube,
-			icon: (props: React.SVGProps<SVGSVGElement>) => (
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-					<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
-					<polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
-				</svg>
-			)
-		},
-	];
-
-	const companyLinks = [
-		{ name: "About Us", href: "/about" },
-		{ name: "Our Services", href: "/services" },
-		{ name: "Gallery", href: "/gallery" },
-		{ name: "Contact Us", href: "/contact" },
-	];
 
 	return (
 		<footer className="bg-neutral-50 border-t border-neutral-200">
@@ -173,14 +173,17 @@ export function Footer() {
 					{/* Accordion: Services */}
 					<div className="border-b border-neutral-200/60 pb-4">
 						<button
+							type="button"
 							onClick={() => toggleAccordion("services")}
-							className="flex items-center justify-between w-full text-left font-bold text-xs uppercase tracking-wider text-neutral-800"
+							aria-expanded={activeAccordion === "services"}
+							aria-controls="footer-services-menu"
+							className="flex items-center justify-between w-full text-left font-bold text-xs uppercase tracking-wider text-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded"
 						>
 							SERVICES
 							<ChevronDown className={cn("h-4 w-4 transition-transform duration-200", activeAccordion === "services" && "rotate-180")} />
 						</button>
 						{activeAccordion === "services" && (
-							<ul className="flex flex-col gap-3 mt-3 pl-1 font-body">
+							<ul id="footer-services-menu" className="flex flex-col gap-3 mt-3 pl-1 font-body">
 								{servicesList.map((service) => (
 									<li key={service.name}>
 										<Link href={service.href} className="text-sm text-neutral-500 font-light">
@@ -195,14 +198,17 @@ export function Footer() {
 					{/* Accordion: Company */}
 					<div className="border-b border-neutral-200/60 pb-4">
 						<button
+							type="button"
 							onClick={() => toggleAccordion("company")}
-							className="flex items-center justify-between w-full text-left font-bold text-xs uppercase tracking-wider text-neutral-800"
+							aria-expanded={activeAccordion === "company"}
+							aria-controls="footer-company-menu"
+							className="flex items-center justify-between w-full text-left font-bold text-xs uppercase tracking-wider text-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded"
 						>
 							COMPANY
 							<ChevronDown className={cn("h-4 w-4 transition-transform duration-200", activeAccordion === "company" && "rotate-180")} />
 						</button>
 						{activeAccordion === "company" && (
-							<ul className="flex flex-col gap-3 mt-3 pl-1 font-body">
+							<ul id="footer-company-menu" className="flex flex-col gap-3 mt-3 pl-1 font-body">
 								{companyLinks.map((link) => (
 									<li key={link.name}>
 										<Link href={link.href} className="text-sm text-neutral-500 font-light">

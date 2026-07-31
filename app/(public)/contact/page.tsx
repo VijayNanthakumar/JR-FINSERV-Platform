@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+
 import { PageBanner } from "@/components/common/PageBanner";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { Card } from "@/components/common/Card";
@@ -136,7 +136,7 @@ export default function ContactPage() {
 						<div className="flex items-start gap-3 mt-2">
 							<MapPin className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
 							<div>
-								<h4 className="font-semibold text-sm text-neutral-800">{company.name} Office</h4>
+								<h3 className="font-semibold text-sm text-neutral-800">{company.name} Office</h3>
 								<p className="text-sm text-neutral-500 leading-relaxed mt-1">
 									{company.address.full}
 								</p>

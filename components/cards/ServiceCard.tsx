@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+
 import Link from "next/link";
+import Image from "next/image";
 import { LucideIcon, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -37,12 +38,13 @@ export function ServiceCard({
 				{/* Top Image Banner */}
 				{image && (
 					<div className="relative w-full h-44 overflow-hidden border-b border-neutral-100">
-						{/* eslint-disable-next-line @next/next/no-img-element */}
-						<img
+						<Image
 							src={image}
 							alt={name}
+							fill
+							sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
 							loading="lazy"
-							className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+							className="object-cover transition-transform duration-700 group-hover:scale-105"
 						/>
 						{/* Subtle top overlay */}
 						<div className="absolute inset-0 bg-gradient-to-b from-black/5 to-transparent pointer-events-none" />

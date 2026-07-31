@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const allowedBuckets = ["hero", "gallery", "partners", "testimonials"];
+    const allowedBuckets = ["hero", "gallery", "partners", "testimonials", "notices"];
     if (!allowedBuckets.includes(bucket)) {
       return NextResponse.json(
         { success: false, message: "Invalid bucket." },

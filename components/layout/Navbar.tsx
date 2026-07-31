@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/common/Button";
 import {
@@ -65,10 +66,12 @@ export function Navbar() {
 			<div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between relative">
 				{/* Logo */}
 				<Link href="/" className="flex items-center gap-3 lg:gap-4 group z-10 shrink-0">
-					{/* eslint-disable-next-line @next/next/no-img-element */}
-					<img
+					<Image
 						src={company.logo}
 						alt={`${company.name} Logo`}
+						width={200}
+						height={96}
+						priority
 						className={cn(
 							"w-auto object-contain transition-all duration-300 rounded-xl shadow-xs shrink-0",
 							scrolled
@@ -119,8 +122,13 @@ export function Navbar() {
 						onMouseLeave={() => setIsMegaMenuOpen(false)}
 					>
 						<button
+							type="button"
+							onClick={() => setIsMegaMenuOpen((prev) => !prev)}
+							aria-expanded={isMegaMenuOpen}
+							aria-haspopup="true"
+							aria-controls="navbar-services-menu"
 							className={cn(
-								"flex items-center gap-1 py-2 text-sm font-medium transition-colors cursor-pointer",
+								"flex items-center gap-1 py-2 text-sm font-medium transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded",
 								pathname.startsWith("/services")
 									? "text-blue-600 font-semibold"
 									: cn(navTextClass, navTextHoverClass)
@@ -132,6 +140,7 @@ export function Navbar() {
 						<AnimatePresence>
 							{isMegaMenuOpen && (
 								<motion.div
+									id="navbar-services-menu"
 									initial={{ opacity: 0, y: 10 }}
 									animate={{ opacity: 1, y: 0 }}
 									exit={{ opacity: 0, y: 10 }}
@@ -183,7 +192,7 @@ export function Navbar() {
 
 				{/* Right Side Actions */}
 				<div className="hidden lg:flex items-center gap-4">
-					<Link href="/contact">
+					<Link href="/contact#consultation">
 						<Button variant="primary-gradient" size="sm">
 							Book a Free Consultation
 						</Button>
@@ -193,9 +202,11 @@ export function Navbar() {
 				{/* Mobile Controls */}
 				<div className="flex items-center gap-2 lg:hidden">
 					<button
+						type="button"
 						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-						className="p-2 rounded-lg text-neutral-600 hover:bg-neutral-100 transition-colors cursor-pointer"
-						aria-label="Menu"
+						aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+						aria-expanded={isMobileMenuOpen}
+						className="p-2 rounded-lg text-neutral-600 hover:bg-neutral-100 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
 					>
 						{isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
 					</button>
@@ -261,7 +272,7 @@ export function Navbar() {
 						</div>
 
 						<div className="flex flex-col gap-3 mt-2">
-							<Link href="/contact">
+							<Link href="/contact#consultation" onClick={() => setIsMobileMenuOpen(false)}>
 								<Button className="w-full" variant="primary-gradient">
 									Book a Free Consultation
 								</Button>

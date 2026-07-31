@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+
 import { Breadcrumb, BreadcrumbItem } from "./Breadcrumb";
 import { motion } from "framer-motion";
 

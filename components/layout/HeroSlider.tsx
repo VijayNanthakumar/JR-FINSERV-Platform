@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/common/Button";
 import {
@@ -25,8 +26,8 @@ const FALLBACK_SLIDES: HeroSlide[] = [
 		primary_cta_text: "Explore Our Services",
 		primary_cta_link: "/services",
 		secondary_cta_text: "Speak to an Advisor",
-		secondary_cta_link: "/contact",
-		image_url: "/images/hero/hero-family.png",
+		secondary_cta_link: "/contact#consultation",
+		image_url: "/images/hero/hero-family.webp",
 		background_image_url: null,
 		is_active: true,
 		display_order: 0,
@@ -41,8 +42,8 @@ const FALLBACK_SLIDES: HeroSlide[] = [
 		primary_cta_text: "View Mutual Funds",
 		primary_cta_link: "/services/mutual-funds",
 		secondary_cta_text: "Talk to an Advisor",
-		secondary_cta_link: "/contact",
-		image_url: "/images/hero/hero-advisory.png",
+		secondary_cta_link: "/contact#consultation",
+		image_url: "/images/hero/hero-advisory.webp",
 		background_image_url: null,
 		is_active: true,
 		display_order: 1,
@@ -57,8 +58,8 @@ const FALLBACK_SLIDES: HeroSlide[] = [
 		primary_cta_text: "View Insurance Plans",
 		primary_cta_link: "/services",
 		secondary_cta_text: "Talk to an Advisor",
-		secondary_cta_link: "/contact",
-		image_url: "/images/hero/hero-insurance.png",
+		secondary_cta_link: "/contact#consultation",
+		image_url: "/images/hero/hero-insurance.webp",
 		background_image_url: null,
 		is_active: true,
 		display_order: 2,
@@ -105,7 +106,7 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 		return () => {
 			if (timerRef.current) clearInterval(timerRef.current);
 		};
-	}, [active, slides.length]);
+	}, [slides.length]);
 
 	const slide = slides[active];
 
@@ -116,70 +117,63 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 			<div className="absolute bottom-0 left-0 w-[360px] h-[360px] bg-emerald-50/50 rounded-full filter blur-[90px] pointer-events-none" />
 
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-				{/* Left: Text content */}
-				<motion.div
-					initial={{ opacity: 0, y: 15 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="lg:col-span-6 flex flex-col gap-8 text-left"
-				>
-					<AnimatePresence mode="wait">
-						<motion.div
-							key={slide.id}
-							initial={{ opacity: 0, y: 12 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -8 }}
-							transition={{ duration: 0.4, ease: "easeOut" }}
-							className="flex flex-col gap-6"
-						>
-							<span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide text-emerald-700 bg-emerald-50/80 border border-emerald-200/60 w-fit">
-								<ShieldCheck className="h-3.5 w-3.5" /> 3,500+ Happy Customers
-							</span>
+				{/* Left: Text content with fixed reserved container height */}
+				<div className="lg:col-span-6 flex flex-col justify-between text-left h-full">
+					{/* Text container reserved height prevents vertical layout shift */}
+					<div className="relative min-h-[290px] sm:min-h-[310px] md:min-h-[320px] lg:min-h-[340px]">
+						<AnimatePresence mode="popLayout" initial={false}>
+							<motion.div
+								key={slide.id}
+								initial={{ opacity: 0, y: 10 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: -10 }}
+								transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+								className="flex flex-col gap-6 w-full"
+							>
+								<span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide text-emerald-700 bg-emerald-50/80 border border-emerald-200/60 w-fit">
+									<ShieldCheck className="h-3.5 w-3.5" /> 3,500+ Happy Customers
+								</span>
 
-							<h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-navy-900 tracking-tight leading-[1.12]">
-								{slide.title}
-							</h1>
+								<h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-navy-900 tracking-tight leading-[1.12] line-clamp-2">
+									{slide.title}
+								</h1>
 
-							{slide.subtitle && (
-								<p className="text-base sm:text-lg text-neutral-600 max-w-lg leading-relaxed font-body font-light">
-									{slide.subtitle}
-								</p>
-							)}
-
-							<div className="flex flex-col sm:flex-row gap-4 mt-2">
-								{slide.primary_cta_text && slide.primary_cta_link && (
-									<Link href={slide.primary_cta_link}>
-										<Button
-											variant="primary-gradient"
-											size="lg"
-											className="w-full sm:w-auto px-8 shadow-md hover:shadow-lg transition-all duration-300"
-										>
-											{slide.primary_cta_text}
-										</Button>
-									</Link>
+								{slide.subtitle && (
+									<p className="text-base sm:text-lg text-neutral-600 max-w-lg leading-relaxed font-body font-light line-clamp-3">
+										{slide.subtitle}
+									</p>
 								)}
-								{slide.secondary_cta_text && slide.secondary_cta_link && (
-									<Link href={slide.secondary_cta_link}>
-										<Button
-											variant="secondary"
-											size="lg"
-											className="w-full sm:w-auto px-8 transition-colors duration-300"
-										>
-											{slide.secondary_cta_text}
-										</Button>
-									</Link>
-								)}
-							</div>
-						</motion.div>
-					</AnimatePresence>
 
-					{/* Quick stat row */}
-					<motion.div
-						initial={{ opacity: 0, y: 10 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5, delay: 0.2 }}
-						className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 mt-4 border-t border-neutral-100"
-					>
+								<div className="flex flex-col sm:flex-row gap-4 mt-2">
+									{slide.primary_cta_text && slide.primary_cta_link && (
+										<Link href={slide.primary_cta_link}>
+											<Button
+												variant="primary-gradient"
+												size="lg"
+												className="w-full sm:w-auto px-8 shadow-md hover:shadow-lg transition-all duration-300"
+											>
+												{slide.primary_cta_text}
+											</Button>
+										</Link>
+									)}
+									{slide.secondary_cta_text && slide.secondary_cta_link && (
+										<Link href={slide.secondary_cta_link.includes("#") ? slide.secondary_cta_link : `${slide.secondary_cta_link}#consultation`}>
+											<Button
+												variant="secondary"
+												size="lg"
+												className="w-full sm:w-auto px-8 transition-colors duration-300"
+											>
+												{slide.secondary_cta_text}
+											</Button>
+										</Link>
+									)}
+								</div>
+							</motion.div>
+						</AnimatePresence>
+					</div>
+
+					{/* Quick stat row — pinned at bottom of left column, perfectly stable */}
+					<div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 mt-6 border-t border-neutral-100">
 						{quickStats.map((stat) => (
 							<div key={stat.label} className="flex items-center gap-3">
 								<div className="h-10 w-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-700 shrink-0 border border-blue-100/30">
@@ -195,57 +189,61 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 								</div>
 							</div>
 						))}
-					</motion.div>
-				</motion.div>
+					</div>
+				</div>
 
-				{/* Right: Image slider */}
-				<motion.div
-					initial={{ opacity: 0, scale: 0.98 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="lg:col-span-6 relative"
-				>
+				{/* Right: Fixed Image slider & fixed bottom info card */}
+				<div className="lg:col-span-6 relative">
 					<div className="relative">
-						<div className="relative h-[340px] sm:h-[400px] md:h-[460px] lg:h-[500px] rounded-[32px] overflow-hidden shadow-[0_12px_40px_rgba(10,27,51,0.08)] border border-neutral-200/60">
-							<AnimatePresence mode="sync">
-								<motion.img
+						<div className="relative h-[340px] sm:h-[400px] md:h-[460px] lg:h-[500px] rounded-[32px] overflow-hidden shadow-[0_12px_40px_rgba(10,27,51,0.08)] border border-neutral-200/60 bg-neutral-100">
+							<AnimatePresence mode="popLayout" initial={false}>
+								<motion.div
 									key={slide.id}
-									src={slide.image_url ?? "/images/hero/hero-family.png"}
-									alt={slide.title}
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
 									exit={{ opacity: 0 }}
-									transition={{ duration: 0.6, ease: "easeInOut" }}
-									className="absolute inset-0 w-full h-full object-cover"
-								/>
+									transition={{ duration: 0.5, ease: "easeInOut" }}
+									className="absolute inset-0 w-full h-full"
+								>
+									<Image
+										src={slide.image_url ?? "/images/hero/hero-family.webp"}
+										alt={slide.title}
+										fill
+										priority={active === 0}
+										sizes="(max-width: 1024px) 100vw, 50vw"
+										className="object-cover object-center"
+									/>
+								</motion.div>
 							</AnimatePresence>
 
-							{/* Bottom overlay panel */}
+							{/* Bottom overlay panel — fixed height, position & layout */}
 							<div className="absolute bottom-0 inset-x-0 z-20 rounded-b-[32px] overflow-hidden">
-								<div className="relative h-[130px] sm:h-[136px] px-6 sm:px-8 py-4 flex flex-col justify-between bg-navy-900/90 backdrop-blur-md border-t border-white/10">
-									<AnimatePresence mode="wait">
-										<motion.div
-											key={slide.id}
-											initial={{ opacity: 0, y: 5 }}
-											animate={{ opacity: 1, y: 0 }}
-											exit={{ opacity: 0, y: -5 }}
-											transition={{ duration: 0.35, ease: "easeOut" }}
-											className="flex gap-3"
-										>
-											<span className="w-1 rounded-full bg-emerald-500 shrink-0" />
-											<div className="flex flex-col gap-1 min-w-0">
-												<h3 className="font-display font-semibold text-base sm:text-lg text-white leading-snug truncate">
-													{slide.primary_cta_text ?? slide.title}
-												</h3>
-												<p className="font-body text-xs sm:text-sm text-neutral-300 leading-relaxed line-clamp-2">
-													{slide.subtitle ?? ""}
-												</p>
-											</div>
-										</motion.div>
-									</AnimatePresence>
+								<div className="relative h-[128px] sm:h-[136px] px-6 sm:px-8 py-4 flex flex-col justify-between bg-navy-900/90 backdrop-blur-md border-t border-white/10">
+									<div className="relative h-[64px] sm:h-[72px] overflow-hidden">
+										<AnimatePresence mode="popLayout" initial={false}>
+											<motion.div
+												key={slide.id}
+												initial={{ opacity: 0, y: 6 }}
+												animate={{ opacity: 1, y: 0 }}
+												exit={{ opacity: 0, y: -6 }}
+												transition={{ duration: 0.35, ease: "easeOut" }}
+												className="absolute inset-0 flex gap-3 items-start"
+											>
+												<span className="w-1 h-full rounded-full bg-emerald-500 shrink-0" />
+												<div className="flex flex-col gap-0.5 min-w-0 flex-1">
+													<h3 className="font-display font-semibold text-base sm:text-lg text-white leading-snug truncate">
+														{slide.primary_cta_text ?? slide.title}
+													</h3>
+													<p className="font-body text-xs sm:text-sm text-neutral-300 leading-relaxed line-clamp-2">
+														{slide.subtitle ?? ""}
+													</p>
+												</div>
+											</motion.div>
+										</AnimatePresence>
+									</div>
 
-									{/* Dot indicators */}
-									<div className="flex items-center justify-center gap-2">
+									{/* Dot indicators — pinned at bottom */}
+									<div className="flex items-center justify-center gap-2 pt-1">
 										{slides.map((s, index) => (
 											<button
 												key={s.id}
@@ -266,24 +264,25 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 							</div>
 						</div>
 
-						{/* Navigation arrows */}
+						{/* Navigation arrows — fixed position centered on image */}
 						<button
 							onClick={prev}
 							aria-label="Previous slide"
-							className="absolute top-1/2 -translate-y-1/2 -left-4 z-20 h-10 w-10 flex items-center justify-center rounded-full bg-white text-navy-800 shadow-[0_4px_12px_rgba(10,27,51,0.1)] border border-neutral-100 hover:bg-neutral-50 transition-colors cursor-pointer"
+							className="absolute top-1/2 -translate-y-1/2 -left-3 sm:-left-4 z-20 h-10 w-10 flex items-center justify-center rounded-full bg-white text-navy-800 shadow-[0_4px_12px_rgba(10,27,51,0.1)] border border-neutral-100 hover:bg-neutral-50 transition-colors cursor-pointer"
 						>
 							<ChevronLeft className="h-5 w-5" />
 						</button>
 						<button
 							onClick={next}
 							aria-label="Next slide"
-							className="absolute top-1/2 -translate-y-1/2 -right-4 z-20 h-10 w-10 flex items-center justify-center rounded-full bg-white text-navy-800 shadow-[0_4px_12px_rgba(10,27,51,0.1)] border border-neutral-100 hover:bg-neutral-50 transition-colors cursor-pointer"
+							className="absolute top-1/2 -translate-y-1/2 -right-3 sm:-right-4 z-20 h-10 w-10 flex items-center justify-center rounded-full bg-white text-navy-800 shadow-[0_4px_12px_rgba(10,27,51,0.1)] border border-neutral-100 hover:bg-neutral-50 transition-colors cursor-pointer"
 						>
 							<ChevronRight className="h-5 w-5" />
 						</button>
 					</div>
-				</motion.div>
+				</div>
 			</div>
 		</section>
 	);
 }
+

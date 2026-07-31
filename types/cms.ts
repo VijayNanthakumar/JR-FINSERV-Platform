@@ -115,6 +115,32 @@ export interface YouTubeVideo {
 export type YouTubeVideoInsert = Omit<YouTubeVideo, "id" | "created_at" | "updated_at">;
 export type YouTubeVideoUpdate = Partial<YouTubeVideoInsert>;
 
+// ─── Notices ─────────────────────────────────────────────────────────────────
+
+export const NOTICE_CATEGORIES = [
+  "Homepage",
+  "Mutual Funds",
+  "LIC",
+  "Health Insurance",
+  "General Insurance",
+  "All Services",
+] as const;
+
+export type NoticeCategory = (typeof NOTICE_CATEGORIES)[number];
+
+export interface Notice {
+  id: string;
+  image_url: string;
+  service_category: NoticeCategory | string;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export type NoticeInsert = Omit<Notice, "id" | "created_at" | "updated_at">;
+export type NoticeUpdate = Partial<NoticeInsert>;
+
 // ─── API Response Envelope ───────────────────────────────────────────────────
 
 export interface ApiResponse<T = null> {

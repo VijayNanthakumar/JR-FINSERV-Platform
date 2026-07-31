@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+
 import Link from "next/link";
 import { Button } from "@/components/common/Button";
 import { Compass } from "lucide-react";
@@ -24,9 +24,9 @@ export default function NotFound() {
 					<span className="font-display text-5xl sm:text-6xl font-extrabold text-navy-800 tracking-tight leading-none select-none">
 						404
 					</span>
-					<h2 className="font-display text-2xl font-bold text-navy-950 leading-snug">
+					<h1 className="font-display text-2xl font-bold text-navy-950 leading-snug">
 						This page has wandered off
-					</h2>
+					</h1>
 					<p className="text-xs sm:text-sm text-neutral-500 max-w-xs mx-auto leading-relaxed font-body">
 						The link may be broken or the financial compliance policy page was relocated. Let&apos;s get you back on track.
 					</p>

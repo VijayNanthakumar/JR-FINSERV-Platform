@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+
 import { ChevronRight, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 

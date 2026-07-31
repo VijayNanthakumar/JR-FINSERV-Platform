@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -26,16 +27,16 @@ interface PartnerLogosProps {
 }
 
 const PARTNER_LOGO_MAP: Record<string, string> = {
-	"Nippon India Mutual Fund": "/images/partner-logos/nippon.jpg",
-	"SBI Mutual Fund": "/images/partner-logos/sbi.jpg",
-	"ICICI Prudential Mutual Fund": "/images/partner-logos/icici.jpg",
-	"Mahindra Manulife Mutual Fund": "/images/partner-logos/mahindra.png",
-	"Motilal Oswal Mutual Fund": "/images/partner-logos/motilal.jpg",
-	"Aditya Birla Sun Life Mutual Fund": "/images/partner-logos/abs.jpg",
-	"LIC": "/images/partner-logos/lic.png",
-	"Star Health Insurance": "/images/partner-logos/star-health.jpg",
-	"Chola MS General Insurance": "/images/partner-logos/chola.jpg",
-	"National Insurance": "/images/partner-logos/national.jpg",
+	"Nippon India Mutual Fund": "/images/partner-logos/nippon.webp",
+	"SBI Mutual Fund": "/images/partner-logos/sbi.webp",
+	"ICICI Prudential Mutual Fund": "/images/partner-logos/icici.webp",
+	"Mahindra Manulife Mutual Fund": "/images/partner-logos/mahindra.webp",
+	"Motilal Oswal Mutual Fund": "/images/partner-logos/motilal.webp",
+	"Aditya Birla Sun Life Mutual Fund": "/images/partner-logos/abs.webp",
+	"LIC": "/images/partner-logos/lic.webp",
+	"Star Health Insurance": "/images/partner-logos/star-health.webp",
+	"Chola MS General Insurance": "/images/partner-logos/chola.webp",
+	"National Insurance": "/images/partner-logos/national.webp",
 };
 
 export function PartnerLogos({ title, partners, variant = "grid", className }: PartnerLogosProps) {
@@ -43,10 +44,12 @@ export function PartnerLogos({ title, partners, variant = "grid", className }: P
 		const partner = partners[0];
 		const logoSrc = partner.logo_url || partner.src || PARTNER_LOGO_MAP[partner.name];
 		const imageElement = logoSrc ? (
-			// eslint-disable-next-line @next/next/no-img-element
-			<img
+			<Image
 				src={logoSrc}
 				alt={partner.name}
+				width={200}
+				height={80}
+				loading="lazy"
 				className="h-16 md:h-20 w-auto object-contain rounded-xl shadow-xs"
 			/>
 		) : (
@@ -111,10 +114,12 @@ export function PartnerLogos({ title, partners, variant = "grid", className }: P
 								className="flex items-center justify-center text-center p-5 min-h-[96px] rounded-2xl border border-neutral-100 bg-neutral-50/50 hover:border-blue-500/30 hover:bg-white hover:shadow-[0_8px_20px_rgba(10,27,51,0.05)] transition-all duration-300 group"
 							>
 								{logoSrc ? (
-									// eslint-disable-next-line @next/next/no-img-element
-									<img
+									<Image
 										src={logoSrc}
 										alt={partner.name}
+										width={120}
+										height={48}
+										loading="lazy"
 										className="h-10 md:h-12 w-auto object-contain max-w-full"
 									/>
 								) : (

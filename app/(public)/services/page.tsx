@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+
 import Link from "next/link";
 import { PageBanner } from "@/components/common/PageBanner";
 import { ServiceCard } from "@/components/cards/ServiceCard";
@@ -23,7 +23,7 @@ export default function ServicesPage() {
 			{/* Service Cards Grid */}
 			<section className="py-20 md:py-28 bg-neutral-50">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch justify-center">
 						{servicesList.map((service, index) => (
 							<motion.div
 								initial={{ opacity: 0, y: 16 }}
@@ -51,7 +51,7 @@ export default function ServicesPage() {
 					<p className="text-sm text-neutral-500 leading-relaxed font-body">
 						Talk to one of our advisors. We&apos;ll listen to your goals and suggest what genuinely fits — no obligation.
 					</p>
-					<Link href="/contact">
+					<Link href="/contact#consultation">
 						<Button variant="primary-gradient">
 							Book a Free Consultation
 						</Button>

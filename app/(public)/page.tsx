@@ -1,4 +1,3 @@
-import React from "react";
 import { Card } from "@/components/common/Card";
 import { HeroSlider } from "@/components/layout/HeroSlider";
 import { ServicesGrid } from "@/components/layout/ServicesGrid";
@@ -20,21 +19,24 @@ import { cn } from "@/lib/utils";
 import { company } from "@/config/company";
 import Image from "next/image";
 import { YouTubeVideoSection } from "@/components/common/YouTubeVideoSection";
+import { NoticeSection } from "@/components/common/NoticeSection";
 import {
 	getActiveHeroSlides,
 	getActiveYouTubeVideos,
 	getActivePartners,
 	getActiveTestimonials,
 	groupPartnersByCategory,
+	getActiveNotices,
 } from "@/lib/cms-data";
 
 export default async function HomePage() {
 	// ─── Fetch CMS content directly from Supabase (server-side) ────────────────
-	const [heroSlides, homepageVideos, partners, testimonials] = await Promise.all([
+	const [heroSlides, homepageVideos, partners, testimonials, homepageNotices] = await Promise.all([
 		getActiveHeroSlides(),
 		getActiveYouTubeVideos("Homepage"),
 		getActivePartners(),
 		getActiveTestimonials(),
+		getActiveNotices("Homepage"),
 	]);
 
 	// Group partners by category (preserves homepage layout)
@@ -364,6 +366,9 @@ export default async function HomePage() {
 			{/* 7. Video Stories Section — loaded dynamically from Supabase (youtube_videos) */}
 			<YouTubeVideoSection videos={homepageVideos} />
 
+			{/* 7b. Notices — promotional posters from CMS */}
+			<NoticeSection notices={homepageNotices} bgClassName="bg-neutral-50 border-b border-neutral-200" />
+
 			{/* 8. Partners — live from CMS (grouped by category) */}
 			<section className="py-20 md:py-28 bg-white border-b border-neutral-200">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col gap-4">
@@ -404,17 +409,17 @@ export default async function HomePage() {
 						/* Fallback: hardcoded partners when CMS is empty */
 						<div className="flex flex-col gap-10">
 							{[
-								{ name: "Life Insurance", logos: [{ name: "LIC", src: "/images/partner-logos/lic.png" }] },
-								{ name: "Health Insurance", logos: [{ name: "Star Health Insurance", src: "/images/partner-logos/star-health.jpg" }] },
-								{ name: "General & Vehicle Insurance", logos: [{ name: "Chola MS General Insurance", src: "/images/partner-logos/chola.jpg" }, { name: "National Insurance", src: "/images/partner-logos/national.jpg" }] },
-								{ name: "Mutual Funds", logos: [{ name: "Nippon India Mutual Fund", src: "/images/partner-logos/nippon.jpg" }, { name: "SBI Mutual Fund", src: "/images/partner-logos/sbi.jpg" }, { name: "ICICI Prudential Mutual Fund", src: "/images/partner-logos/icici.jpg" }, { name: "Mahindra Manulife Mutual Fund", src: "/images/partner-logos/mahindra.png" }, { name: "Motilal Oswal Mutual Fund", src: "/images/partner-logos/motilal.jpg" }, { name: "Aditya Birla Sun Life Mutual Fund", src: "/images/partner-logos/abs.jpg" }] },
+								{ name: "Life Insurance", logos: [{ name: "LIC", src: "/images/partner-logos/lic.webp" }] },
+								{ name: "Health Insurance", logos: [{ name: "Star Health Insurance", src: "/images/partner-logos/star-health.webp" }] },
+								{ name: "General & Vehicle Insurance", logos: [{ name: "Chola MS General Insurance", src: "/images/partner-logos/chola.webp" }, { name: "National Insurance", src: "/images/partner-logos/national.webp" }] },
+								{ name: "Mutual Funds", logos: [{ name: "Nippon India Mutual Fund", src: "/images/partner-logos/nippon.webp" }, { name: "SBI Mutual Fund", src: "/images/partner-logos/sbi.webp" }, { name: "ICICI Prudential Mutual Fund", src: "/images/partner-logos/icici.webp" }, { name: "Mahindra Manulife Mutual Fund", src: "/images/partner-logos/mahindra.webp" }, { name: "Motilal Oswal Mutual Fund", src: "/images/partner-logos/motilal.webp" }, { name: "Aditya Birla Sun Life Mutual Fund", src: "/images/partner-logos/abs.webp" }] },
 							].map((category) => (
 								<div key={category.name} className="flex flex-col gap-4 border border-neutral-200/60 rounded-3xl p-6 md:p-8 bg-neutral-50/50">
 									<h3 className="font-display font-semibold text-sm text-neutral-500 uppercase tracking-widest text-left pl-2 border-l-2 border-blue-600">{category.name}</h3>
 									<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 items-center justify-items-center mt-2">
 										{category.logos.map((logo) => (
 											<div key={logo.name} className="flex items-center justify-center p-4 min-h-[88px] w-full rounded-2xl border border-neutral-100 bg-white shadow-xs hover:shadow-md transition-shadow">
-												<Image src={logo.src} alt={logo.name} width={120} height={44} className="object-contain max-h-12 w-auto max-w-full" />
+												<Image src={logo.src} alt={logo.name} width={120} height={44} loading="lazy" className="object-contain max-h-12 w-auto max-w-full" />
 											</div>
 										))}
 									</div>
@@ -451,8 +456,8 @@ export default async function HomePage() {
 				</div>
 			</section>
 
-			{/* 10. Office Gallery & Contact Us Section */}
-			<ContactConsultationSection showOfficePresence={true} />
+			{/* 10. Contact Us Section */}
+			<ContactConsultationSection />
 		</div>
 	);
 }
