@@ -171,22 +171,22 @@ export function Footer() {
 					<div className="h-[1px] bg-neutral-200/80" />
 
 					{/* Accordion: Services */}
-					<div className="border-b border-neutral-200/60 pb-4">
+					<div className="border-b border-neutral-200/60 pb-3">
 						<button
 							type="button"
 							onClick={() => toggleAccordion("services")}
 							aria-expanded={activeAccordion === "services"}
 							aria-controls="footer-services-menu"
-							className="flex items-center justify-between w-full text-left font-bold text-xs uppercase tracking-wider text-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded"
+							className="flex items-center justify-between w-full text-left font-bold text-xs uppercase tracking-wider text-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded min-h-[44px] py-2"
 						>
 							SERVICES
 							<ChevronDown className={cn("h-4 w-4 transition-transform duration-200", activeAccordion === "services" && "rotate-180")} />
 						</button>
 						{activeAccordion === "services" && (
-							<ul id="footer-services-menu" className="flex flex-col gap-3 mt-3 pl-1 font-body">
+							<ul id="footer-services-menu" className="flex flex-col gap-3 mt-2 pb-2 pl-1 font-body">
 								{servicesList.map((service) => (
 									<li key={service.name}>
-										<Link href={service.href} className="text-sm text-neutral-500 font-light">
+										<Link href={service.href} className="text-sm text-neutral-500 font-light inline-block py-1">
 											{service.name}
 										</Link>
 									</li>
@@ -196,22 +196,22 @@ export function Footer() {
 					</div>
 
 					{/* Accordion: Company */}
-					<div className="border-b border-neutral-200/60 pb-4">
+					<div className="border-b border-neutral-200/60 pb-3">
 						<button
 							type="button"
 							onClick={() => toggleAccordion("company")}
 							aria-expanded={activeAccordion === "company"}
 							aria-controls="footer-company-menu"
-							className="flex items-center justify-between w-full text-left font-bold text-xs uppercase tracking-wider text-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded"
+							className="flex items-center justify-between w-full text-left font-bold text-xs uppercase tracking-wider text-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded min-h-[44px] py-2"
 						>
 							COMPANY
 							<ChevronDown className={cn("h-4 w-4 transition-transform duration-200", activeAccordion === "company" && "rotate-180")} />
 						</button>
 						{activeAccordion === "company" && (
-							<ul id="footer-company-menu" className="flex flex-col gap-3 mt-3 pl-1 font-body">
+							<ul id="footer-company-menu" className="flex flex-col gap-3 mt-2 pb-2 pl-1 font-body">
 								{companyLinks.map((link) => (
 									<li key={link.name}>
-										<Link href={link.href} className="text-sm text-neutral-500 font-light">
+										<Link href={link.href} className="text-sm text-neutral-500 font-light inline-block py-1">
 											{link.name}
 										</Link>
 									</li>
@@ -228,10 +228,10 @@ export function Footer() {
 								href={social.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="h-9 w-9 rounded-full border border-neutral-300 bg-white flex items-center justify-center text-neutral-500"
+								className="h-11 w-11 rounded-full border border-neutral-300 bg-white flex items-center justify-center text-neutral-500"
 								aria-label={social.name}
 							>
-								<social.icon className="h-4 w-4" />
+								<social.icon className="h-5 w-5" />
 							</a>
 						))}
 					</div>

@@ -1,6 +1,8 @@
 import { Card } from "@/components/common/Card";
 import { HeroSlider } from "@/components/layout/HeroSlider";
 import { ServicesGrid } from "@/components/layout/ServicesGrid";
+
+export const revalidate = 0;
 import { FounderSection } from "@/components/layout/FounderSection";
 import { ContactConsultationSection } from "@/components/common/ContactConsultationSection";
 import { Button } from "@/components/common/Button";
@@ -147,7 +149,7 @@ export default async function HomePage() {
 			</section>
 
 			{/* 3. Our Services */}
-			<section id="services" className="py-20 md:py-28 bg-neutral-50 border-b border-neutral-200">
+			<section id="services" className="py-12 sm:py-16 md:py-28 bg-neutral-50 border-b border-neutral-200">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col gap-4">
 					<span className="text-xs font-bold uppercase tracking-widest text-blue-600">OUR SERVICES</span>
 					<h2 className="font-display text-3xl md:text-4xl font-bold text-navy-900">How We Can Help You</h2>
@@ -159,7 +161,7 @@ export default async function HomePage() {
 			</section>
 
 			{/* 4. Why Choose Us */}
-			<section className="py-20 md:py-28 bg-white border-b border-neutral-200">
+			<section className="py-12 sm:py-16 md:py-28 bg-white border-b border-neutral-200">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col gap-4">
 					<span className="text-xs font-bold uppercase tracking-widest text-blue-600">WHY CHOOSE US</span>
 					<h2 className="font-display text-3xl md:text-4xl font-bold text-navy-900">
@@ -193,7 +195,7 @@ export default async function HomePage() {
 
 			{/* 6. Testimonials — live from CMS */}
 			{testimonials.length > 0 && (
-				<section className="py-20 md:py-28 bg-white border-b border-neutral-200">
+				<section className="py-12 sm:py-16 md:py-28 bg-white border-b border-neutral-200">
 					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col gap-10">
 						{/* Header */}
 						<div className="flex flex-col md:flex-row justify-between items-center gap-8 border-b border-neutral-100 pb-10 text-left">
@@ -295,7 +297,7 @@ export default async function HomePage() {
 
 			{/* 6b. Fallback testimonial section (hardcoded) when CMS is empty */}
 			{testimonials.length === 0 && (
-				<section className="py-20 md:py-28 bg-white border-b border-neutral-200">
+				<section className="py-12 sm:py-16 md:py-28 bg-white border-b border-neutral-200">
 					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col gap-10">
 						<div className="flex flex-col md:flex-row justify-between items-center gap-8 border-b border-neutral-100 pb-10 text-left">
 							<div className="flex flex-col gap-2 max-w-xl">
@@ -370,7 +372,7 @@ export default async function HomePage() {
 			<NoticeSection notices={homepageNotices} bgClassName="bg-neutral-50 border-b border-neutral-200" />
 
 			{/* 8. Partners — live from CMS (grouped by category) */}
-			<section className="py-20 md:py-28 bg-white border-b border-neutral-200">
+			<section className="py-12 sm:py-16 md:py-28 bg-white border-b border-neutral-200">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col gap-4">
 					<span className="text-xs font-bold uppercase tracking-widest text-blue-600">OUR EMPANELMENTS</span>
 					<h2 className="font-display text-3xl md:text-4xl font-bold text-navy-900">Corporate Partners &amp; Empanelments</h2>
@@ -431,7 +433,7 @@ export default async function HomePage() {
 			</section>
 
 			{/* 9. Community Impact Section */}
-			<section className="py-20 md:py-28 bg-neutral-50 border-b border-neutral-200">
+			<section className="py-12 sm:py-16 md:py-28 bg-neutral-50 border-b border-neutral-200">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col gap-4">
 					<span className="text-xs font-bold uppercase tracking-widest text-emerald-600">COMMUNITY IMPACT</span>
 					<h2 className="font-display text-3xl md:text-4xl font-bold text-navy-900">Serving Society Beyond Finance</h2>

@@ -39,7 +39,7 @@ export function DeleteDialog({
         type="button"
         disabled={disabled}
         onClick={() => setOpen(true)}
-        className="flex items-center gap-1.5 text-xs font-medium text-red-600 hover:text-red-700 hover:bg-red-50 px-2.5 py-1.5 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex items-center gap-1.5 min-h-[44px] text-xs font-medium text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
       >
         <Trash2 className="h-3.5 w-3.5" />
         {label}
@@ -52,7 +52,7 @@ export function DeleteDialog({
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => !loading && setOpen(false)}
           />
-          <div className="relative z-10 bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 flex flex-col gap-5">
+          <div className="relative z-10 bg-white rounded-2xl shadow-2xl w-[calc(100vw-2rem)] max-w-sm p-6 flex flex-col gap-5">
             <div className="flex items-start gap-4">
               <div className="h-10 w-10 rounded-xl bg-red-50 flex items-center justify-center shrink-0 border border-red-100">
                 <AlertTriangle className="h-5 w-5 text-red-500" />
@@ -70,7 +70,7 @@ export function DeleteDialog({
                 type="button"
                 disabled={loading}
                 onClick={() => setOpen(false)}
-                className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-800 hover:bg-neutral-100 rounded-lg transition-colors"
+                className="min-h-[44px] px-4 py-2.5 flex items-center justify-center text-sm font-medium text-neutral-600 hover:text-neutral-800 hover:bg-neutral-100 rounded-lg transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -78,7 +78,7 @@ export function DeleteDialog({
                 type="button"
                 disabled={loading}
                 onClick={handleConfirm}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-60"
+                className="min-h-[44px] px-4 py-2.5 flex items-center justify-center gap-2 text-sm font-semibold bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-60 cursor-pointer"
               >
                 {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                 Delete

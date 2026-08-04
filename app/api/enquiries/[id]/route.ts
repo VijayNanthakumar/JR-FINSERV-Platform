@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import type { EnquiryStatus, Enquiry } from "@/types/enquiry";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -117,6 +121,8 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 					{ status: 500 }
 				);
 			}
+			revalidatePath("/portal/enquiries");
+			revalidatePath("/portal/dashboard");
 			return NextResponse.json({ success: true, message: "Enquiry updated." });
 		}
 
@@ -127,6 +133,8 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 		);
 	}
 
+	revalidatePath("/portal/enquiries");
+	revalidatePath("/portal/dashboard");
 	return NextResponse.json({ success: true, message: "Enquiry updated." });
 }
 
@@ -153,5 +161,7 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
 		);
 	}
 
+	revalidatePath("/portal/enquiries");
+	revalidatePath("/portal/dashboard");
 	return NextResponse.json({ success: true, message: "Enquiry deleted." });
 }

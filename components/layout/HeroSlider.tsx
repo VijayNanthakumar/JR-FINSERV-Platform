@@ -111,7 +111,7 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 	const slide = slides[active];
 
 	return (
-		<section className="relative w-full bg-white pt-32 pb-20 md:pt-40 lg:pt-[196px] lg:pb-28 overflow-hidden">
+		<section className="relative w-full bg-white pt-24 pb-12 sm:pt-32 sm:pb-20 md:pt-40 lg:pt-[196px] lg:pb-28 overflow-hidden">
 			{/* Faint ambient accents */}
 			<div className="absolute -top-24 -right-24 w-[420px] h-[420px] bg-blue-50/50 rounded-full filter blur-[100px] pointer-events-none" />
 			<div className="absolute bottom-0 left-0 w-[360px] h-[360px] bg-emerald-50/50 rounded-full filter blur-[90px] pointer-events-none" />
@@ -134,7 +134,7 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 									<ShieldCheck className="h-3.5 w-3.5" /> 3,500+ Happy Customers
 								</span>
 
-								<h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-navy-900 tracking-tight leading-[1.12] line-clamp-2">
+								<h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-navy-900 tracking-tight leading-[1.12] line-clamp-2">
 									{slide.title}
 								</h1>
 
@@ -268,14 +268,14 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 						<button
 							onClick={prev}
 							aria-label="Previous slide"
-							className="absolute top-1/2 -translate-y-1/2 -left-3 sm:-left-4 z-20 h-10 w-10 flex items-center justify-center rounded-full bg-white text-navy-800 shadow-[0_4px_12px_rgba(10,27,51,0.1)] border border-neutral-100 hover:bg-neutral-50 transition-colors cursor-pointer"
+							className="absolute top-1/2 -translate-y-1/2 left-1 sm:-left-4 z-20 h-11 w-11 flex items-center justify-center rounded-full bg-white text-navy-800 shadow-[0_4px_12px_rgba(10,27,51,0.1)] border border-neutral-100 hover:bg-neutral-50 transition-colors cursor-pointer"
 						>
 							<ChevronLeft className="h-5 w-5" />
 						</button>
 						<button
 							onClick={next}
 							aria-label="Next slide"
-							className="absolute top-1/2 -translate-y-1/2 -right-3 sm:-right-4 z-20 h-10 w-10 flex items-center justify-center rounded-full bg-white text-navy-800 shadow-[0_4px_12px_rgba(10,27,51,0.1)] border border-neutral-100 hover:bg-neutral-50 transition-colors cursor-pointer"
+							className="absolute top-1/2 -translate-y-1/2 right-1 sm:-right-4 z-20 h-11 w-11 flex items-center justify-center rounded-full bg-white text-navy-800 shadow-[0_4px_12px_rgba(10,27,51,0.1)] border border-neutral-100 hover:bg-neutral-50 transition-colors cursor-pointer"
 						>
 							<ChevronRight className="h-5 w-5" />
 						</button>

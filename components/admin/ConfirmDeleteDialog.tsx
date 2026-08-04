@@ -46,13 +46,13 @@ export function ConfirmDeleteDialog({
 			onClick={handleBackdropClick}
 			onKeyDown={(e) => e.key === "Escape" && onCancel()}
 			className="
-				w-full max-w-md rounded-xl border border-neutral-200 bg-white p-0
+				w-[calc(100vw-2rem)] max-w-md mx-auto my-auto rounded-xl border border-neutral-200 bg-white p-0
 				shadow-2xl backdrop:bg-black/40
 				open:flex open:flex-col
 			"
 		>
 			{/* Header */}
-			<div className="flex items-start justify-between gap-4 border-b border-neutral-100 px-6 py-4">
+			<div className="flex items-center justify-between gap-4 border-b border-neutral-100 px-6 py-4">
 				<div className="flex items-center gap-3">
 					<div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-50">
 						<AlertTriangle className="h-5 w-5 text-red-600" />
@@ -64,7 +64,7 @@ export function ConfirmDeleteDialog({
 				<button
 					onClick={onCancel}
 					disabled={isDeleting}
-					className="rounded-md p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 disabled:opacity-50"
+					className="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 disabled:opacity-50 cursor-pointer"
 					aria-label="Close dialog"
 				>
 					<X className="h-4 w-4" />
@@ -82,12 +82,12 @@ export function ConfirmDeleteDialog({
 			</div>
 
 			{/* Footer */}
-			<div className="flex justify-end gap-3 border-t border-neutral-100 px-6 py-4">
+			<div className="flex items-center justify-end gap-3 border-t border-neutral-100 px-6 py-4">
 				<button
 					type="button"
 					onClick={onCancel}
 					disabled={isDeleting}
-					className="rounded-lg border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50"
+					className="min-h-[44px] px-4 py-2.5 rounded-lg border border-neutral-200 bg-white text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:opacity-50 cursor-pointer"
 				>
 					Cancel
 				</button>
@@ -95,7 +95,7 @@ export function ConfirmDeleteDialog({
 					type="button"
 					onClick={onConfirm}
 					disabled={isDeleting}
-					className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-60"
+					className="min-h-[44px] px-4 py-2.5 inline-flex items-center gap-2 rounded-lg bg-red-600 text-sm font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-60 cursor-pointer"
 				>
 					{isDeleting ? (
 						<>

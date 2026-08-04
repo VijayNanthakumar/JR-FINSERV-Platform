@@ -121,7 +121,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 	// Fetch enquiries + stats
 	const fetchEnquiriesAndStats = useCallback(async () => {
 		try {
-			const res = await fetch("/api/enquiries");
+			const res = await fetch("/api/enquiries", { cache: "no-store" });
 			if (!res.ok) return;
 			const data = await res.json();
 			if (data.success) {

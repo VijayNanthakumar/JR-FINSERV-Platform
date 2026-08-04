@@ -263,7 +263,7 @@ export default function NoticesCmsPage() {
   const fetchNotices = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/notices");
+      const res = await fetch("/api/notices", { cache: "no-store" });
       const json = await res.json();
       if (json.success) setNotices(json.data ?? []);
     } catch {

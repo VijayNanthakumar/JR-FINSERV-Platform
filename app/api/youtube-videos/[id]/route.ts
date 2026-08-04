@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { extractYouTubeId } from "@/lib/youtube";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -66,6 +70,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 
+    revalidatePath("/");
     return NextResponse.json({ success: true, data });
   } catch (err) {
     console.error("[PATCH /api/youtube-videos/[id]] unexpected:", err);
@@ -83,6 +88,7 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 
+    revalidatePath("/");
     return NextResponse.json({ success: true, message: "Video deleted successfully." });
   } catch (err) {
     console.error("[DELETE /api/youtube-videos/[id]] unexpected:", err);

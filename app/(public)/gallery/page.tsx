@@ -79,7 +79,7 @@ export default function GalleryPage() {
 	useEffect(() => {
 		async function loadGallery() {
 			try {
-				const res = await fetch("/api/gallery");
+				const res = await fetch("/api/gallery", { cache: "no-store" });
 				const json = await res.json();
 				if (json.success && json.data && json.data.length > 0) {
 					// filter only active images

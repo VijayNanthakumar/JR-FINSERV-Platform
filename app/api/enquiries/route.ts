@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import type { Enquiry, EnquiryStats } from "@/types/enquiry";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 /**
  * GET /api/enquiries
@@ -184,6 +188,9 @@ export async function POST(request: NextRequest) {
 			}
 		);
 	}
+
+	revalidatePath("/portal/enquiries");
+	revalidatePath("/portal/dashboard");
 
 	return NextResponse.json(
 		{

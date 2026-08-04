@@ -72,13 +72,13 @@ export function ImageLightbox({
           <div className="absolute inset-0 cursor-zoom-out" onClick={onClose} />
 
           {/* Top controls header */}
-          <div className="absolute top-4 left-0 right-0 px-6 flex items-center justify-between text-white z-10">
+          <div className="absolute top-[calc(1rem+env(safe-area-inset-top))] left-0 right-0 px-4 sm:px-6 flex items-center justify-between text-white z-10">
             <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
               Image {currentIndex! + 1} of {images.length}
             </span>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/15 text-neutral-300 hover:text-white transition-colors cursor-pointer"
+              className="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-white/10 border border-white/15 hover:bg-white/25 text-neutral-200 hover:text-white transition-colors cursor-pointer"
               aria-label="Close"
             >
               <X className="h-5 w-5" />
@@ -89,7 +89,7 @@ export function ImageLightbox({
           {images.length > 1 && (
             <button
               onClick={handlePrev}
-              className="absolute left-4 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/15 text-neutral-300 hover:text-white transition-colors cursor-pointer z-10"
+              className="absolute left-2 sm:left-4 p-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-white/10 border border-white/15 hover:bg-white/25 text-neutral-200 hover:text-white transition-colors cursor-pointer z-10"
               aria-label="Previous image"
             >
               <ChevronLeft className="h-6 w-6" />
@@ -103,7 +103,7 @@ export function ImageLightbox({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="relative w-full max-w-5xl h-[80vh] rounded-xl overflow-hidden border border-white/10 shadow-2xl z-10 pointer-events-none"
+            className="relative w-full max-w-5xl h-[75vh] sm:h-[80vh] rounded-xl overflow-hidden border border-white/10 shadow-2xl z-10 pointer-events-none"
           >
             <Image
               src={current.src}
@@ -119,7 +119,7 @@ export function ImageLightbox({
           {images.length > 1 && (
             <button
               onClick={handleNext}
-              className="absolute right-4 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/15 text-neutral-300 hover:text-white transition-colors cursor-pointer z-10"
+              className="absolute right-2 sm:right-4 p-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-white/10 border border-white/15 hover:bg-white/25 text-neutral-200 hover:text-white transition-colors cursor-pointer z-10"
               aria-label="Next image"
             >
               <ChevronRight className="h-6 w-6" />

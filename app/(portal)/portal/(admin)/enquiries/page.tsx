@@ -13,6 +13,9 @@ export const metadata = {
 	title: "Enquiries | JR FINSERV Admin",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function EnquiriesPage() {
 	const supabase = createServerSupabaseClient();
 

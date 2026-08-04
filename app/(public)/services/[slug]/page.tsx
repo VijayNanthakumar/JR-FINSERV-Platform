@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { company } from "@/config/company";
 import { getActiveYouTubeVideos, getActivePartners, getActiveNotices } from "@/lib/cms-data";
 
+export const revalidate = 0;
+
 interface PageProps {
 	params: Promise<{ slug: string }>;
 }

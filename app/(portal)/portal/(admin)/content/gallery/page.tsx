@@ -219,7 +219,7 @@ export default function GalleryCmsPage() {
   const fetchImages = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/gallery");
+      const res = await fetch("/api/gallery", { cache: "no-store" });
       const json = await res.json();
       if (json.success) setImages(json.data ?? []);
     } catch {

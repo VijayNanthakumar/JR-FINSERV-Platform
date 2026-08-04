@@ -239,7 +239,7 @@ export default function YouTubeVideosCmsPage() {
   const fetchVideos = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/youtube-videos");
+      const res = await fetch("/api/youtube-videos", { cache: "no-store" });
       const json = await res.json();
       if (json.success) setVideos(json.data ?? []);
     } catch {

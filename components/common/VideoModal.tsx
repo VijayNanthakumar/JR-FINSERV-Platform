@@ -67,7 +67,7 @@ export function VideoModal({ isOpen, onClose, videoId, title }: VideoModalProps)
             </h3>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/15 text-neutral-300 hover:text-white transition-colors cursor-pointer"
+              className="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-white/10 border border-white/15 hover:bg-white/25 text-neutral-300 hover:text-white transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="h-5 w-5" />

@@ -8,6 +8,9 @@ export const metadata = {
 	title: "Enquiry Details | JR FINSERV Admin",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function NotFound() {
 	return (
 		<div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-neutral-200 bg-white py-16 text-center">

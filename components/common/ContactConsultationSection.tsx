@@ -49,7 +49,7 @@ export function ContactConsultationSection({
 	];
 
 	return (
-		<section id={id} className={cn("py-20 md:py-28 bg-white", className)}>
+		<section id={id} className={cn("py-12 sm:py-16 md:py-28 bg-white", className)}>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				{/* Contact split layout — 12 column grid */}
 				<div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">

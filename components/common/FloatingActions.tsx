@@ -29,7 +29,7 @@ export function FloatingActions() {
 	};
 
 	return (
-		<div className="fixed bottom-5 right-5 z-[9999] flex flex-col items-end gap-3">
+		<div className="fixed bottom-5 right-4 sm:right-5 z-[9999] flex flex-col items-end gap-3 max-sm:bottom-[calc(1.25rem+env(safe-area-inset-bottom))] max-sm:right-[calc(1rem+env(safe-area-inset-right))]">
 			<AnimatePresence>
 				{showBackToTop && (
 					<motion.button

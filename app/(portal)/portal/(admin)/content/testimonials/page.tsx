@@ -181,7 +181,7 @@ export default function TestimonialsCmsPage() {
   const fetchTestimonials = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/testimonials");
+      const res = await fetch("/api/testimonials", { cache: "no-store" });
       const json = await res.json();
       if (json.success) setTestimonials(json.data ?? []);
     } catch {

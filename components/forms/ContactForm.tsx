@@ -364,7 +364,7 @@ export function ContactForm() {
 
 				{/* Consent Checkbox */}
 				<div className="flex flex-col gap-2">
-					<label htmlFor="contact-consent" className="flex items-start gap-3 cursor-pointer">
+					<label htmlFor="contact-consent" className="flex items-start gap-3 cursor-pointer min-h-[44px] py-1">
 						<input
 							id="contact-consent"
 							type="checkbox"
@@ -372,7 +372,7 @@ export function ContactForm() {
 							checked={form.consent}
 							onChange={handleChange}
 							aria-required="true"
-							className="h-5 w-5 rounded border-neutral-300 bg-neutral-50 text-blue-600 focus:ring-blue-600 mt-0.5"
+							className="h-5 w-5 rounded border-neutral-300 bg-neutral-50 text-blue-600 focus:ring-blue-600 mt-0.5 shrink-0"
 						/>
 						<span className="text-xs text-neutral-500 leading-relaxed select-none">
 							I agree to the terms of use and explicitly consent to {company.name} contacting me regarding my query via Mobile, WhatsApp, or Email.

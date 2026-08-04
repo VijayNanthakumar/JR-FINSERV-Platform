@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 /**
  * POST /api/gallery/reorder
@@ -29,6 +33,8 @@ export async function POST(request: NextRequest) {
 
     await Promise.all(updates);
 
+    revalidatePath("/gallery");
+    revalidatePath("/");
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("[POST /api/gallery/reorder] unexpected:", err);

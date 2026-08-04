@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import type { HeroSlideInsert } from "@/types/cms";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 /**
  * GET /api/hero  — list all hero slides (admin, unfiltered by active)
@@ -61,6 +65,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data }, { status: 201 });
   } catch (err) {
     console.error("[POST /api/hero] unexpected:", err);

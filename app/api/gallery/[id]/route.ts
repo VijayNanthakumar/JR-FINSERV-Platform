@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function PATCH(
   request: NextRequest,
@@ -32,6 +36,8 @@ export async function PATCH(
       return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 
+    revalidatePath("/gallery");
+    revalidatePath("/");
     return NextResponse.json({ success: true, data });
   } catch (err) {
     console.error("[PATCH /api/gallery/[id]] unexpected:", err);
@@ -64,6 +70,8 @@ export async function DELETE(
       if (path) await supabase.storage.from("gallery").remove([path]);
     }
 
+    revalidatePath("/gallery");
+    revalidatePath("/");
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("[DELETE /api/gallery/[id]] unexpected:", err);

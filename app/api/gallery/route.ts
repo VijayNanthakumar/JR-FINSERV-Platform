@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 /**
  * GET /api/gallery  — list all gallery images (admin view)
@@ -60,6 +64,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 
+    revalidatePath("/gallery");
+    revalidatePath("/");
     return NextResponse.json({ success: true, data }, { status: 201 });
   } catch (err) {
     console.error("[POST /api/gallery] unexpected:", err);

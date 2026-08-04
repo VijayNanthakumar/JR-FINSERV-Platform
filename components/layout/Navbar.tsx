@@ -206,7 +206,7 @@ export function Navbar() {
 						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 						aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
 						aria-expanded={isMobileMenuOpen}
-						className="p-2 rounded-lg text-neutral-600 hover:bg-neutral-100 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+						className="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
 					>
 						{isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
 					</button>

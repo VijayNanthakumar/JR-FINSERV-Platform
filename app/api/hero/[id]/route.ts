@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import type { HeroSlideUpdate } from "@/types/cms";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 /**
  * PATCH /api/hero/[id] — update a hero slide
@@ -40,6 +44,7 @@ export async function PATCH(
       return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true, data });
   } catch (err) {
     console.error("[PATCH /api/hero/[id]] unexpected:", err);
@@ -78,6 +83,7 @@ export async function DELETE(
       if (path) await supabase.storage.from("hero").remove([path]);
     }
 
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("[DELETE /api/hero/[id]] unexpected:", err);

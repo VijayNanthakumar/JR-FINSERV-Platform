@@ -102,7 +102,7 @@ export function EnquiryTable({
 	const columns = ["Name", "Phone", "Service", "Status", "Received On", "Actions"];
 
 	return (
-		<div className="overflow-x-auto rounded-xl border border-neutral-200 bg-white shadow-xs">
+		<div className="overflow-x-auto rounded-xl border border-neutral-200 bg-white shadow-xs -mx-4 sm:mx-0">
 			<table className="min-w-full text-sm">
 				{/* ── Head ── */}
 				<thead>
@@ -165,7 +165,7 @@ export function EnquiryTable({
 								<td className="px-4 py-3.5">
 									<Link
 										href={`/portal/enquiries/${row.id}`}
-										className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:border-navy-800 hover:bg-navy-800 hover:text-white"
+										className="inline-flex items-center justify-center gap-1.5 min-h-[44px] rounded-lg border border-neutral-200 bg-white px-3.5 py-2 text-xs font-medium text-neutral-700 transition-colors hover:border-navy-800 hover:bg-navy-800 hover:text-white"
 										aria-label={`View enquiry from ${row.name}`}
 									>
 										<Eye className="h-3.5 w-3.5" />

@@ -184,7 +184,7 @@ export default function HeroCmsPage() {
   const fetchSlides = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/hero");
+      const res = await fetch("/api/hero", { cache: "no-store" });
       const json = await res.json();
       if (json.success) setSlides(json.data ?? []);
     } catch {

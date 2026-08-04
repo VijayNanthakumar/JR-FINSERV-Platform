@@ -82,7 +82,7 @@ export function PortalHeader({ onMenuToggle }: PortalHeaderProps) {
 			<div className="flex items-center gap-3">
 				<button
 					onClick={onMenuToggle}
-					className="p-2 -ml-2 rounded-lg hover:bg-neutral-100 lg:hidden text-neutral-600"
+					className="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center -ml-2 rounded-lg hover:bg-neutral-100 lg:hidden text-neutral-600 cursor-pointer"
 					aria-label="Toggle sidebar"
 				>
 					<Menu className="h-5 w-5" />
@@ -104,7 +104,7 @@ export function PortalHeader({ onMenuToggle }: PortalHeaderProps) {
 				<button
 					onClick={() => setSoundEnabled(!soundEnabled)}
 					title={soundEnabled ? "Mute notification chime" : "Unmute notification chime"}
-					className={`p-2 rounded-xl border transition-all duration-200 cursor-pointer ${
+					className={`p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer ${
 						soundEnabled
 							? "bg-neutral-50 border-neutral-200 text-neutral-700 hover:bg-neutral-100"
 							: "bg-amber-50 border-amber-200 text-amber-600 hover:bg-amber-100"
@@ -117,7 +117,7 @@ export function PortalHeader({ onMenuToggle }: PortalHeaderProps) {
 				<div className="relative" ref={dropdownRef}>
 					<button
 						onClick={() => setDropdownOpen(!dropdownOpen)}
-						className={`relative p-2 rounded-xl border transition-all duration-200 cursor-pointer ${
+						className={`relative p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl border transition-all duration-200 cursor-pointer ${
 							unreadCount > 0
 								? "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
 								: "bg-neutral-50 border-neutral-200 text-neutral-600 hover:bg-neutral-100"
@@ -143,7 +143,7 @@ export function PortalHeader({ onMenuToggle }: PortalHeaderProps) {
 								animate={{ opacity: 1, y: 0, scale: 1 }}
 								exit={{ opacity: 0, y: 8, scale: 0.96 }}
 								transition={{ duration: 0.15, ease: "easeOut" }}
-								className="absolute right-0 mt-2 w-80 sm:w-96 bg-white border border-neutral-200 rounded-2xl shadow-xl overflow-hidden z-50"
+								className="absolute -right-2 sm:right-0 mt-2 w-[calc(100vw-2rem)] max-w-sm sm:w-96 bg-white border border-neutral-200 rounded-2xl shadow-xl overflow-hidden z-50"
 							>
 								{/* Dropdown Header */}
 								<div className="p-4 border-b border-neutral-100 bg-neutral-50/80 flex items-center justify-between">

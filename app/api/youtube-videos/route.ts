@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import { extractYouTubeId } from "@/lib/youtube";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 /**
  * GET /api/youtube-videos  — list all youtube videos (admin view)
@@ -72,6 +76,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 
+    revalidatePath("/");
     return NextResponse.json({ success: true, data }, { status: 201 });
   } catch (err) {
     console.error("[POST /api/youtube-videos] unexpected:", err);

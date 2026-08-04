@@ -176,7 +176,7 @@ export default function PartnersCmsPage() {
   const fetchPartners = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/partners");
+      const res = await fetch("/api/partners", { cache: "no-store" });
       const json = await res.json();
       if (json.success) setPartners(json.data ?? []);
     } catch {

@@ -323,7 +323,7 @@ export function MutualFundCalculatorsSection() {
   const results = calculateResults();
 
   return (
-    <section className="py-20 md:py-28 bg-neutral-50/60 border-b border-neutral-200/80 select-none">
+    <section className="py-12 sm:py-16 md:py-28 bg-neutral-50/60 border-b border-neutral-200/80 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12 text-center">
         {/* Section Header */}
         <div className="flex flex-col gap-3 max-w-3xl mx-auto">
@@ -382,7 +382,7 @@ export function MutualFundCalculatorsSection() {
                   </span>
                   <button
                     onClick={() => handleTryNow(calc.id)}
-                    className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 hover:text-blue-600 bg-blue-50/70 hover:bg-blue-100/80 px-4 py-2 rounded-xl border border-blue-200/60 transition-all duration-200 cursor-pointer group/btn"
+                    className="inline-flex items-center justify-center gap-2 text-xs font-bold text-blue-700 hover:text-blue-600 bg-blue-50/70 hover:bg-blue-100/80 px-4 py-2.5 min-h-[44px] rounded-xl border border-blue-200/60 transition-all duration-200 cursor-pointer group/btn"
                   >
                     <span>Try Now</span>
                     <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-1" />
@@ -413,12 +413,12 @@ export function MutualFundCalculatorsSection() {
               </div>
 
               {/* Mode Selection Tabs */}
-              <div className="flex flex-wrap gap-2 pt-1 border-t border-neutral-100/80">
+              <div className="flex flex-nowrap sm:flex-wrap gap-2 pt-1 border-t border-neutral-100/80 overflow-x-auto no-scrollbar pb-1.5">
                 {CALCULATORS.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-4 py-2 text-xs font-semibold rounded-xl border transition-all duration-200 cursor-pointer ${
+                    className={`px-4 py-2.5 min-h-[44px] shrink-0 text-xs font-semibold rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-center ${
                       activeTab === tab.id
                         ? "bg-navy-900 border-navy-950 text-white shadow-sm"
                         : "bg-neutral-50 border-neutral-200/80 text-neutral-600 hover:border-neutral-300 hover:bg-white"

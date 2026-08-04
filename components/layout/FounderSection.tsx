@@ -7,7 +7,7 @@ import { company } from "@/config/company";
 
 export function FounderSection() {
 	return (
-		<section className="py-20 md:py-28 bg-neutral-50 border-b border-neutral-200">
+		<section className="py-12 sm:py-16 md:py-28 bg-neutral-50 border-b border-neutral-200">
 			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 				{/* Photo */}
 				<motion.div
