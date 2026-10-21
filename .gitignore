@@ -1,0 +1,29 @@
+# dependencies
+node_modules
+
+# next
+.next
+out
+.vercel
+
+# build and cache
+dist
+coverage
+*.tsbuildinfo
+
+# environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# logs
+*.log
+
+# prisma
+prisma/dev.db
+
+# operating system
+.DS_Store
+Thumbs.db

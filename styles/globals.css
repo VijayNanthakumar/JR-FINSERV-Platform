@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+
+	/* JR FINSERV Custom Brand Colors */
+	--color-navy-900: #0A1B33;
+	--color-navy-800: #0F2444;
+	--color-navy-700: #15305C;
+	--color-navy-600: #1C3F73;
+	--color-navy-100: #E2E8F2;
+
+	--color-blue-700: #17439C;
+	--color-blue-600: #2054C9;
+	--color-blue-500: #3B6FE0;
+	--color-blue-400: #6B93EA;
+	--color-blue-100: #E4ECFC;
+	--color-blue-50: #F3F7FD;
+
+	--color-emerald-700: #05713A;
+	--color-emerald-600: #0B8A50;
+	--color-emerald-500: #16A365;
+	--color-emerald-100: #DCF5E7;
+
+	/* Custom Neutrals */
+	--color-neutral-white: #FFFFFF;
+	--color-neutral-50: #F7F8FA;
+	--color-neutral-100: #EEF0F3;
+	--color-neutral-200: #E2E5EA;
+	--color-neutral-400: #9AA3B2;
+	--color-neutral-600: #5B6472;
+	--color-neutral-800: #2B3140;
+	--color-neutral-900: #12151C;
+
+	/* Fonts */
+	--font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+	--font-body: var(--font-poppins), "Poppins", sans-serif;
+}
+
+:root {
+	color-scheme: light;
+	--background: 210 20% 98%; /* #F7F8FA */
+	--foreground: 222 40% 6%; /* #12151C */
+	--card: 0 0% 100%;
+	--card-foreground: 222 40% 6%;
+	--popover: 0 0% 100%;
+	--popover-foreground: 222 40% 6%;
+	--primary: 217 63% 22%; /* #15305C */
+	--primary-foreground: 0 0% 100%;
+	--secondary: 210 12% 94%; /* #EEF0F3 */
+	--secondary-foreground: 217 63% 22%;
+	--muted: 210 12% 94%;
+	--muted-foreground: 218 13% 40%; /* #5B6472 */
+	--accent: 222 72% 46%; /* #2054C9 */
+	--accent-foreground: 0 0% 100%;
+	--destructive: 3 62% 48%; /* #C7362E */
+	--destructive-foreground: 210 40% 98%;
+	--border: 216 14% 90%; /* #E2E5EA */
+	--input: 216 14% 90%;
+	--ring: 222 72% 46%;
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+
+	body {
+		@apply bg-background text-foreground antialiased font-body;
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+.animate-shimmer {
+	animation: shimmer 2s infinite linear;
+}
