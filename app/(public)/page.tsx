@@ -22,11 +22,13 @@ import { company } from "@/config/company";
 import Image from "next/image";
 import { YouTubeVideoSection } from "@/components/common/YouTubeVideoSection";
 import { NoticeSection } from "@/components/common/NoticeSection";
+import { InvestorPortalSection } from "@/components/common/InvestorPortalSection";
+import { SocialMediaSection } from "@/components/common/SocialMediaSection";
 import {
 	getActiveHeroSlides,
 	getActiveYouTubeVideos,
-	getActivePartners,
 	getActiveTestimonials,
+	getActivePartners,
 	groupPartnersByCategory,
 	getActiveNotices,
 } from "@/lib/cms-data";
@@ -73,7 +75,6 @@ export default async function HomePage() {
 		},
 	];
 
-	// Community impact details
 	const communityImpact = [
 		{
 			title: "Blood Donation Camps",
@@ -189,7 +190,6 @@ export default async function HomePage() {
 					</div>
 				</div>
 			</section>
-
 			{/* 5. Meet Our Founder */}
 			<FounderSection />
 
@@ -204,8 +204,14 @@ export default async function HomePage() {
 								<h2 className="font-display text-3xl md:text-4xl font-bold text-navy-900">What Our Clients Say</h2>
 								<p className="text-sm text-neutral-500 mt-1">Read verified feedback from families we support.</p>
 							</div>
-							{/* Google Rating Badge */}
-							<div className="flex items-center gap-4 bg-neutral-50 border border-neutral-200/80 rounded-2xl px-6 py-5 shadow-xs">
+							{/* Google Rating Badge — clickable */}
+							<a
+								href="https://g.page/r/CX6ImnTtz0p9EBM/review"
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="View JR FINSERV on Google Reviews"
+								className="flex items-center gap-4 bg-neutral-50 border border-neutral-200/80 rounded-2xl px-6 py-5 shadow-xs hover:shadow-md hover:border-neutral-300 hover:bg-white transition-all duration-200 cursor-pointer group"
+							>
 								<div className="flex flex-col items-center select-none shrink-0 border-r border-neutral-200 pr-4">
 									<span className="font-bold text-xl tracking-tight text-blue-600">
 										G<span className="text-red-500">o</span><span className="text-amber-500">o</span><span className="text-blue-500">g</span><span className="text-emerald-500">l</span><span className="text-red-500">e</span>
@@ -221,9 +227,9 @@ export default async function HomePage() {
 											))}
 										</div>
 									</div>
-									<span className="text-xs text-neutral-500 mt-1 font-body">Based on 132+ Google Reviews</span>
+									<span className="text-xs text-neutral-500 mt-1 font-body group-hover:text-blue-600 transition-colors">Based on 132+ Google Reviews</span>
 								</div>
-							</div>
+							</a>
 						</div>
 
 						{/* Testimonial cards */}
@@ -284,6 +290,29 @@ export default async function HomePage() {
 							})}
 						</div>
 
+						{/* Review CTA bar */}
+						<a
+							href="https://g.page/r/CX6ImnTtz0p9EBM/review"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Write a Google Review for JR FINSERV"
+							className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-neutral-200/80 rounded-2xl px-6 py-5 shadow-sm hover:shadow-md hover:border-blue-200 hover:bg-blue-50/30 transition-all duration-200 cursor-pointer group text-left"
+						>
+							{/* Left: text */}
+							<div className="flex items-center gap-4 flex-1 min-w-0">
+								<div className="h-10 w-10 rounded-full bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
+									<Star className="h-5 w-5 fill-amber-400 text-amber-400" />
+								</div>
+								<div className="flex flex-col gap-0.5">
+									<span className="font-display font-bold text-sm md:text-base text-navy-900">Had a Good Experience with JR FINSERV?</span>
+									<span className="text-xs text-neutral-500 font-body">Share your experience on Google.</span>
+								</div>
+							</div>
+							{/* Right: button-styled portion of the same link */}
+							<span className="inline-flex items-center gap-2 bg-blue-700 group-hover:bg-blue-600 text-white font-semibold text-sm rounded-xl px-4 py-2.5 transition-all shadow-sm whitespace-nowrap">
+								⭐ Write a Google Review ↗
+							</span>
+						</a>
 						<div className="flex justify-center mt-2">
 							<a href={company.googleMaps.link} target="_blank" rel="noopener noreferrer">
 								<Button variant="secondary" className="px-8 shadow-xs border-neutral-300 hover:border-neutral-400">
@@ -305,7 +334,14 @@ export default async function HomePage() {
 								<h2 className="font-display text-3xl md:text-4xl font-bold text-navy-900">What Our Clients Say</h2>
 								<p className="text-sm text-neutral-500 mt-1">Read verified Google Business Profile ratings and feedback from families we support.</p>
 							</div>
-							<div className="flex items-center gap-4 bg-neutral-50 border border-neutral-200/80 rounded-2xl px-6 py-5 shadow-xs">
+							{/* Google Rating Badge — clickable */}
+							<a
+								href="https://g.page/r/CX6ImnTtz0p9EBM/review"
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="View JR FINSERV on Google Reviews"
+								className="flex items-center gap-4 bg-neutral-50 border border-neutral-200/80 rounded-2xl px-6 py-5 shadow-xs hover:shadow-md hover:border-neutral-300 hover:bg-white transition-all duration-200 cursor-pointer group"
+							>
 								<div className="flex flex-col items-center select-none shrink-0 border-r border-neutral-200 pr-4">
 									<span className="font-bold text-xl tracking-tight text-blue-600">
 										G<span className="text-red-500">o</span><span className="text-amber-500">o</span><span className="text-blue-500">g</span><span className="text-emerald-500">l</span><span className="text-red-500">e</span>
@@ -321,9 +357,9 @@ export default async function HomePage() {
 											))}
 										</div>
 									</div>
-									<span className="text-xs text-neutral-500 mt-1 font-body">Based on 132+ Google Reviews</span>
+									<span className="text-xs text-neutral-500 mt-1 font-body group-hover:text-blue-600 transition-colors">Based on 132+ Google Reviews</span>
 								</div>
-							</div>
+							</a>
 						</div>
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
 							{[
@@ -354,6 +390,26 @@ export default async function HomePage() {
 								</Card>
 							))}
 						</div>
+						<a
+							href="https://g.page/r/CX6ImnTtz0p9EBM/review"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Write a Google Review for JR FINSERV"
+							className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-neutral-200/80 rounded-2xl px-6 py-5 shadow-sm hover:shadow-md hover:border-blue-200 hover:bg-blue-50/30 transition-all duration-200 cursor-pointer group text-left"
+						>
+							<div className="flex items-center gap-4 flex-1 min-w-0">
+								<div className="h-10 w-10 rounded-full bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
+									<Star className="h-5 w-5 fill-amber-400 text-amber-400" />
+								</div>
+								<div className="flex flex-col gap-0.5">
+									<span className="font-display font-bold text-sm md:text-base text-navy-900">Had a Good Experience with JR FINSERV?</span>
+									<span className="text-xs text-neutral-500 font-body">Share your experience on Google.</span>
+								</div>
+							</div>
+							<span className="inline-flex items-center gap-2 bg-blue-700 group-hover:bg-blue-600 text-white font-semibold text-sm rounded-xl px-4 py-2.5 transition-all shadow-sm whitespace-nowrap">
+								⭐ Write a Google Review ↗
+							</span>
+						</a>
 						<div className="flex justify-center mt-2">
 							<a href={company.googleMaps.link} target="_blank" rel="noopener noreferrer">
 								<Button variant="secondary" className="px-8 shadow-xs border-neutral-300 hover:border-neutral-400">
@@ -370,6 +426,9 @@ export default async function HomePage() {
 
 			{/* 7b. Notices — promotional posters from CMS */}
 			<NoticeSection notices={homepageNotices} bgClassName="bg-neutral-50 border-b border-neutral-200" />
+
+			{/* 8. Investor Portal */}
+			<InvestorPortalSection />
 
 			{/* 8. Partners — live from CMS (grouped by category) */}
 			<section className="py-12 sm:py-16 md:py-28 bg-white border-b border-neutral-200">
@@ -460,6 +519,9 @@ export default async function HomePage() {
 
 			{/* 10. Contact Us Section */}
 			<ContactConsultationSection />
+
+			{/* 11. Social Media */}
+			<SocialMediaSection />
 		</div>
 	);
 }

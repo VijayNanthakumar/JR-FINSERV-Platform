@@ -10,6 +10,8 @@ import {
 	Menu,
 	X,
 	ChevronDown,
+	UserCircle2,
+	ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { company } from "@/config/company";
@@ -191,7 +193,18 @@ export function Navbar() {
 				</nav>
 
 				{/* Right Side Actions */}
-				<div className="hidden lg:flex items-center gap-4">
+				<div className="hidden lg:flex items-center gap-3">
+					{/* Investor Login */}
+					<a
+						href="https://jrassociates.themfbox.com"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-flex items-center gap-2 bg-navy-900 hover:bg-navy-800 active:bg-navy-950 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-all duration-200 shadow-sm group"
+					>
+						<UserCircle2 className="h-4 w-4 shrink-0" />
+						<span>Investor Login</span>
+						<ArrowRight className="h-3.5 w-3.5 shrink-0 opacity-70 group-hover:translate-x-0.5 transition-transform" />
+					</a>
 					<Link href="/contact#consultation">
 						<Button variant="primary-gradient" size="sm">
 							Book a Free Consultation
@@ -272,6 +285,18 @@ export function Navbar() {
 						</div>
 
 						<div className="flex flex-col gap-3 mt-2">
+							{/* Investor Login — mobile */}
+							<a
+								href="https://jrassociates.themfbox.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center justify-center gap-2 w-full bg-navy-900 hover:bg-navy-800 text-white font-semibold text-sm rounded-xl px-4 py-3 transition-all"
+								onClick={() => setIsMobileMenuOpen(false)}
+							>
+								<UserCircle2 className="h-4 w-4" />
+								Investor Login
+								<ArrowRight className="h-3.5 w-3.5 opacity-70" />
+							</a>
 							<Link href="/contact#consultation" onClick={() => setIsMobileMenuOpen(false)}>
 								<Button className="w-full" variant="primary-gradient">
 									Book a Free Consultation
