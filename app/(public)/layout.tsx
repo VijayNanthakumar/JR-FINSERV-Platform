@@ -45,7 +45,6 @@ export default function PublicLayout({
 				<main className="flex-grow">{children}</main>
 				<Footer />
 			</div>
-
 			<FloatingActions />
 		</>
 	);
