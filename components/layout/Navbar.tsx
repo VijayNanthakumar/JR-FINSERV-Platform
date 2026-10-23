@@ -126,6 +126,7 @@ export function Navbar() {
 						<button
 							type="button"
 							onClick={() => setIsMegaMenuOpen((prev) => !prev)}
+							suppressHydrationWarning
 							aria-expanded={isMegaMenuOpen}
 							aria-haspopup="true"
 							aria-controls="navbar-services-menu"
