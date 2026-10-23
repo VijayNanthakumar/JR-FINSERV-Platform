@@ -88,7 +88,21 @@ export default async function HomePage() {
 			{/* 5. Meet Our Founder */}
 			<FounderSection />
 
-			{/* 6. Testimonials — live from CMS */}
+			{/* 7. Video Stories Section — loaded dynamically from Supabase (youtube_videos) */}
+			<YouTubeVideoSection videos={homepageVideos} />
+
+			{/* 7b. Notices — promotional posters from CMS */}
+			<NoticeSection notices={homepageNotices} bgClassName="bg-neutral-50 border-b border-neutral-200" />
+
+			{/* 8. Investor Portal */}
+			<InvestorPortalSection />
+
+			{/* 10. Contact Us Section */}
+			<ContactConsultationSection />
+
+			{/* 11. Social Media */}
+			<SocialMediaSection />
+			{/* 12. Google Reviews — live from CMS */}
 			{testimonials.length > 0 && (
 				<section className="py-12 sm:py-16 md:py-28 bg-white border-b border-neutral-200">
 					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col gap-10">
@@ -316,20 +330,6 @@ export default async function HomePage() {
 				</section>
 			)}
 
-			{/* 7. Video Stories Section — loaded dynamically from Supabase (youtube_videos) */}
-			<YouTubeVideoSection videos={homepageVideos} />
-
-			{/* 7b. Notices — promotional posters from CMS */}
-			<NoticeSection notices={homepageNotices} bgClassName="bg-neutral-50 border-b border-neutral-200" />
-
-			{/* 8. Investor Portal */}
-			<InvestorPortalSection />
-
-			{/* 10. Contact Us Section */}
-			<ContactConsultationSection />
-
-			{/* 11. Social Media */}
-			<SocialMediaSection />
 		</div>
 	);
 }
