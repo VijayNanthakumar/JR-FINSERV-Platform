@@ -269,7 +269,20 @@ export function Footer() {
 						*Disclaimer: Mutual Fund investments are subject to market risks, read all scheme related documents carefully. Insurance is the subject matter of solicitation.
 					</p>
 					<div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-body">
-						<span className="font-light">&copy; {new Date().getFullYear()} {company.name}. All rights reserved.</span>
+						<div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4 text-center md:text-left">
+							<span className="font-light">&copy; {new Date().getFullYear()} {company.name}. All rights reserved.</span>
+							<span className="text-xs text-neutral-500 font-light">
+								Developed by{" "}
+								<a
+									href="https://www.linkedin.com/in/vijaynanthakumar"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="font-medium text-navy-900 hover:text-blue-700 transition-colors"
+								>
+									Vijay N
+								</a>
+							</span>
+						</div>
 						<div className="flex items-center gap-6 font-light">
 							<Link href="/privacy-policy" className="hover:text-blue-700 transition-colors">Privacy Policy</Link>
 							<Link href="/terms-of-use" className="hover:text-blue-700 transition-colors">Terms of Use</Link>

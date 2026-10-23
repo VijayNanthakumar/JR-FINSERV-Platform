@@ -116,11 +116,49 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 			<div className="absolute -top-24 -right-24 w-[420px] h-[420px] bg-blue-50/50 rounded-full filter blur-[100px] pointer-events-none" />
 			<div className="absolute bottom-0 left-0 w-[360px] h-[360px] bg-emerald-50/50 rounded-full filter blur-[90px] pointer-events-none" />
 
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-				{/* Left: Text content with fixed reserved container height */}
-				<div className="lg:col-span-6 flex flex-col justify-between text-left h-full">
-					{/* Text container reserved height prevents vertical layout shift */}
-					<div className="relative min-h-[290px] sm:min-h-[310px] md:min-h-[320px] lg:min-h-[340px]">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+				{/*
+				 * Left column uses display:contents on mobile so its two children
+				 * (Part A and Part B) become direct grid items and can be ordered
+				 * independently relative to the image slider (order-2).
+				 * On lg+ it switches to display:flex, restoring the original two-column
+				 * desktop layout exactly — text on the left, image on the right.
+				 */}
+				<div className="contents lg:col-span-6 lg:flex lg:flex-col lg:justify-between lg:h-full">
+
+					{/* Part A — badge, heading, description: order-1 on mobile */}
+					<div className="max-lg:order-1 lg:order-none text-left">
+						{/* Reserved desktop height prevents layout shift when slide content changes */}
+						<div className="relative min-h-0 lg:min-h-[340px]">
+							<AnimatePresence mode="popLayout" initial={false}>
+								<motion.div
+									key={slide.id}
+									initial={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -10 }}
+									transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+									className="flex flex-col gap-6 w-full"
+								>
+									<span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide text-emerald-700 bg-emerald-50/80 border border-emerald-200/60 w-fit">
+										<ShieldCheck className="h-3.5 w-3.5" /> 3,500+ Happy Customers
+									</span>
+
+									<h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-navy-900 tracking-tight leading-[1.12] line-clamp-2">
+										{slide.title}
+									</h1>
+
+									{slide.subtitle && (
+										<p className="text-base sm:text-lg text-neutral-600 max-w-lg leading-relaxed font-body font-light line-clamp-3">
+											{slide.subtitle}
+										</p>
+									)}
+								</motion.div>
+							</AnimatePresence>
+						</div>
+					</div>
+
+					{/* Part B — CTAs + stats: order-3 on mobile (after slider), bottom of left col on desktop */}
+					<div className="max-lg:order-3 lg:order-none text-left">
 						<AnimatePresence mode="popLayout" initial={false}>
 							<motion.div
 								key={slide.id}
@@ -128,72 +166,56 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 								animate={{ opacity: 1, y: 0 }}
 								exit={{ opacity: 0, y: -10 }}
 								transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-								className="flex flex-col gap-6 w-full"
+								className="flex flex-col sm:flex-row gap-4 lg:mt-2"
 							>
-								<span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide text-emerald-700 bg-emerald-50/80 border border-emerald-200/60 w-fit">
-									<ShieldCheck className="h-3.5 w-3.5" /> 3,500+ Happy Customers
-								</span>
-
-								<h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-navy-900 tracking-tight leading-[1.12] line-clamp-2">
-									{slide.title}
-								</h1>
-
-								{slide.subtitle && (
-									<p className="text-base sm:text-lg text-neutral-600 max-w-lg leading-relaxed font-body font-light line-clamp-3">
-										{slide.subtitle}
-									</p>
+								{slide.primary_cta_text && slide.primary_cta_link && (
+									<Link href={slide.primary_cta_link}>
+										<Button
+											variant="primary-gradient"
+											size="lg"
+											className="w-full sm:w-auto px-8 shadow-md hover:shadow-lg transition-all duration-300"
+										>
+											{slide.primary_cta_text}
+										</Button>
+									</Link>
 								)}
-
-								<div className="flex flex-col sm:flex-row gap-4 mt-2">
-									{slide.primary_cta_text && slide.primary_cta_link && (
-										<Link href={slide.primary_cta_link}>
-											<Button
-												variant="primary-gradient"
-												size="lg"
-												className="w-full sm:w-auto px-8 shadow-md hover:shadow-lg transition-all duration-300"
-											>
-												{slide.primary_cta_text}
-											</Button>
-										</Link>
-									)}
-									{slide.secondary_cta_text && slide.secondary_cta_link && (
-										<Link href={slide.secondary_cta_link.includes("#") ? slide.secondary_cta_link : `${slide.secondary_cta_link}#consultation`}>
-											<Button
-												variant="secondary"
-												size="lg"
-												className="w-full sm:w-auto px-8 transition-colors duration-300"
-											>
-												{slide.secondary_cta_text}
-											</Button>
-										</Link>
-									)}
-								</div>
+								{slide.secondary_cta_text && slide.secondary_cta_link && (
+									<Link href={slide.secondary_cta_link.includes("#") ? slide.secondary_cta_link : `${slide.secondary_cta_link}#consultation`}>
+										<Button
+											variant="secondary"
+											size="lg"
+											className="w-full sm:w-auto px-8 transition-colors duration-300"
+										>
+											{slide.secondary_cta_text}
+										</Button>
+									</Link>
+								)}
 							</motion.div>
 						</AnimatePresence>
-					</div>
 
-					{/* Quick stat row — pinned at bottom of left column, perfectly stable */}
-					<div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 mt-6 border-t border-neutral-100">
-						{quickStats.map((stat) => (
-							<div key={stat.label} className="flex items-center gap-3">
-								<div className="h-10 w-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-700 shrink-0 border border-blue-100/30">
-									<stat.icon className="h-5 w-5" />
+						{/* Quick stat row — pinned at bottom of left column on desktop */}
+						<div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 mt-6 border-t border-neutral-100">
+							{quickStats.map((stat) => (
+								<div key={stat.label} className="flex items-center gap-3">
+									<div className="h-10 w-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-700 shrink-0 border border-blue-100/30">
+										<stat.icon className="h-5 w-5" />
+									</div>
+									<div className="flex flex-col leading-tight">
+										<span className="text-sm font-bold text-navy-900 font-body">
+											{stat.value}
+										</span>
+										<span className="text-[11px] font-medium text-neutral-500 tracking-wide mt-0.5">
+											{stat.label}
+										</span>
+									</div>
 								</div>
-								<div className="flex flex-col leading-tight">
-									<span className="text-sm font-bold text-navy-900 font-body">
-										{stat.value}
-									</span>
-									<span className="text-[11px] font-medium text-neutral-500 tracking-wide mt-0.5">
-										{stat.label}
-									</span>
-								</div>
-							</div>
-						))}
+							))}
+						</div>
 					</div>
 				</div>
 
-				{/* Right: Fixed Image slider & fixed bottom info card */}
-				<div className="lg:col-span-6 relative">
+				{/* Right: Image slider — order-2 on mobile (between Part A and Part B) */}
+				<div className="max-lg:order-2 lg:order-none lg:col-span-6 relative">
 					<div className="relative">
 						<div className="relative h-[340px] sm:h-[400px] md:h-[460px] lg:h-[500px] rounded-[32px] overflow-hidden shadow-[0_12px_40px_rgba(10,27,51,0.08)] border border-neutral-200/60 bg-neutral-100">
 							<AnimatePresence mode="popLayout" initial={false}>
@@ -285,4 +307,3 @@ export function HeroSlider({ slides: cmsSlides }: HeroSliderProps) {
 		</section>
 	);
 }
-
