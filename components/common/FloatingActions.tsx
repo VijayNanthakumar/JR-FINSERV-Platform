@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Phone, ArrowUp } from "lucide-react";
 
@@ -17,11 +18,20 @@ function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export function FloatingActions() {
 	const [showBackToTop, setShowBackToTop] = useState(false);
+	const [showAssistant, setShowAssistant] = useState(false);
 
 	useEffect(() => {
 		const handleScroll = () => setShowBackToTop(window.scrollY > 480);
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
+
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") setShowAssistant(false);
+		};
+		window.addEventListener("keydown", handleKeyDown);
+		return () => window.removeEventListener("keydown", handleKeyDown);
 	}, []);
 
 	const scrollToTop = () => {
@@ -68,6 +78,69 @@ export function FloatingActions() {
 				<span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-20" />
 				<WhatsAppIcon className="h-6 w-6 sm:h-7 sm:w-7 relative" />
 			</motion.a>
+
+			<div className="relative">
+				<AnimatePresence>
+					{showAssistant && (
+						<motion.section
+							initial={{ opacity: 0, y: 8, scale: 0.96 }}
+							animate={{ opacity: 1, y: 0, scale: 1 }}
+							exit={{ opacity: 0, y: 8, scale: 0.96 }}
+							transition={{ duration: 0.2 }}
+							role="dialog"
+							aria-labelledby="ai-assistant-heading"
+							className="absolute bottom-[calc(100%+0.75rem)] right-0 w-[min(20rem,calc(100vw-2rem))] rounded-2xl border border-blue-100 bg-white p-5 text-left shadow-2xl sm:w-80"
+						>
+							<button
+								type="button"
+								onClick={() => setShowAssistant(false)}
+								aria-label="Close AI Assistant welcome panel"
+								className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-blue-50 hover:text-navy-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+							>
+								<span aria-hidden="true" className="text-xl leading-none">
+									&times;
+								</span>
+							</button>
+							<h2
+								id="ai-assistant-heading"
+								className="pr-8 text-base font-bold leading-tight text-navy-900"
+							>
+								JR FINSERV Financial AI Assistant
+							</h2>
+							<p className="mt-3 text-sm leading-6 text-slate-600">
+								Hi! Welcome to JR FINSERV. How can I help you with mutual funds,
+								insurance, or our services?
+							</p>
+							<a
+								href="https://chatgpt.com/g/g-6a7a12d64c4081919754dff507aee5a9-jr-finserv-financial-ai-assistant"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+							>
+								Chat with Our AI Assistant
+							</a>
+						</motion.section>
+					)}
+				</AnimatePresence>
+				<motion.button
+					type="button"
+					onClick={() => setShowAssistant((isOpen) => !isOpen)}
+					aria-label="Ask JR FINSERV AI"
+					aria-expanded={showAssistant}
+					title="Ask JR FINSERV AI"
+					whileHover={{ scale: 1.08 }}
+					whileTap={{ scale: 0.95 }}
+					className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-white p-1 shadow-lg transition-shadow hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:h-14 sm:w-14"
+				>
+					<Image
+						src="/images/ai-assistant/ai-assistant.png"
+						alt=""
+						fill
+						sizes="(min-width: 640px) 56px, 48px"
+						className="object-contain"
+					/>
+				</motion.button>
+			</div>
 		</div>
 	);
 }
